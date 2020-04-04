@@ -5,7 +5,7 @@
 [![Run in Insomnia}](https://insomnia.rest/images/run.svg)](https://insomnia.rest/run/?label=Be%20The%20Hero&uri=https%3A%2F%2Fraw.githubusercontent.com%2FDiegoVictor%2Fomnistack%2Fmaster%2F11%2Fapi%2FInsomnia_2020-04-04.json)
 
 
-Responsible for provide data to the [`web`](https://github.com/DiegoVictor/bethehero/tree/master/web) and [`mobile`](https://github.com/DiegoVictor/bethehero/tree/master/app) front-ends. Permit to register NGOs and manage its incidents. The app has rate limit, brute force prevention, pagination, pagination's link header (to previous, next, first and last page), friendly errors, use JWT to logins and validation, also a simple versioning was made.
+Responsible for provide data to the [`web`](https://github.com/DiegoVictor/bethehero/tree/master/web) and [`mobile`](https://github.com/DiegoVictor/bethehero/tree/master/app) front-ends. Permit to register NGOs and manage its incidents. The app has rate limit, brute force prevention, pagination, pagination's link header (to previous, next, first and last page), friendly errors, use JWT to logins, validation, also a simple versioning was made.
 
 ## Table of Contents
 * [Installing](#installing)
@@ -60,7 +60,7 @@ $ npx knex migrate:latest
 > See more information on [Knex Migrations](http://knexjs.org/#Migrations).
 
 ### .env
-In this file you may configure your Redis database connection, JWT settings, the environment, app's port and a url to documentation (this will be returned with error responses, see [error section](#errors-reference)). Rename the `.env.example` in the root directory to `.env` then just update with yours settings.
+In this file you may configure your Redis database connection, JWT settings, the environment, app's port and a url to documentation (this will be returned with error responses, see [error section](#errors-reference)). Rename the `.env.example` in the root directory to `.env` then just update with your settings.
 
 |key|description|default
 |---|---|---
@@ -73,7 +73,7 @@ In this file you may configure your Redis database connection, JWT settings, the
 |DOCS_URL|An url to docs where users can find more information about the app's internal code errors.|`https://github.com/DiegoVictor/bethehero/blob/master/api/README.md#errors-reference`
 
 ### Rate Limit & Brute Force (Optional)
-The project comes pre-configurated, but you can adjust it as your needs.
+The project comes pre-configured, but you can adjust it as your needs.
 
 * `src/config/rate_limit.js`
 
@@ -85,7 +85,7 @@ The project comes pre-configurated, but you can adjust it as your needs.
 > The lib [`rate-limiter-flexible`](https://github.com/animir/node-rate-limiter-flexible) was used to rate the api's limits, for more configuration information go to [Options](https://github.com/animir/node-rate-limiter-flexible/wiki/Options#options) page.
 
 * `src/config/bruteforce.js`
-> `rate-limiter-flexible` was also used to configure brute force prevention, but an different method of configuration that you can see in [ExpressBrute migration](https://github.com/animir/node-rate-limiter-flexible/wiki/ExpressBrute-migration#options).
+> `rate-limiter-flexible` was also used to configure brute force prevention, but with a different method of configuration that you can see in [ExpressBrute migration](https://github.com/animir/node-rate-limiter-flexible/wiki/ExpressBrute-migration#options).
 
 # Usage
 To start up the app run:
@@ -106,7 +106,7 @@ Instead of only throw a simple message and HTTP Status Code this API return frie
 ```
 > Errors are implemented with [@hapi/boom](https://github.com/hapijs/boom).
 > As you can see a url to error docs are returned too. To configure this url update the `DOCS_URL` key from `.env` file.
-> In the next sub section ([Errors Reference](#errors-reference)) you can see the `code`s error description.
+> In the next sub section ([Errors Reference](#errors-reference)) you can see the errors `code` description.
 
 ### Errors Reference
 |code|message|description
@@ -120,7 +120,7 @@ Instead of only throw a simple message and HTTP Status Code this API return frie
 |449|Too Many Requests|You reached at the requests limit.
 
 ## Pagination
-All the routes with pagination returns 5 records per page, to navigate to other pages just send the `page` query parameter.
+All the routes with pagination returns 5 records per page, to navigate to other pages just send the `page` query parameter with the number of the page.
 
 * To get the third page of incidents:
 ```
@@ -146,28 +146,28 @@ A few routes expect a Bearer JWT Token in an `Authorization` header.
 ```
 GET http://localhost:3333/v1/ngo_incidents?page=1 Authorization: Bearer <token>
 ```
-> To achieve this token you just need authenticate through the `/sessions` route and it will be returned in the `token` key.
+> To achieve this token you just need authenticate through the `/sessions` route and it will return the `token` key with a valid JWT Token.
 
 ## Versioning
-A simple versioning was made. Just remember to set after the `<host>:<port>` the `/v1/` string to your requests url.
-<pre>
+A simple versioning was made. Just remember to set after the `host` the `/v1/` string to your requests.
+```
 GET http://localhost:3333/v1/ngos
-</pre>
+```
 
 ## Routes
 |route|HTTP Method|pagination|params|validation|JWT
 |:---|:---:|:---:|:---:|:---:|:---:
 |`/sessions`|POST|:x:|Body with NGO `id`|:heavy_check_mark:|:x:
-|`/ngos`|GET|:heavy_check_mark:|:x:|:heavy_check_mark:|:x:
+|`/ngos`|GET|:heavy_check_mark:|`page` query parameter|:heavy_check_mark:|:x:
 |`/ngos/:id`|GET|:x:|`:id` of the NGO|:heavy_check_mark:|:x:
 |`/ngos`|POST|:x:|Body with new NGO data|:heavy_check_mark:|:x:
-|`/incidents`|GET|:heavy_check_mark:|:x:|:heavy_check_mark:|:x:
+|`/incidents`|GET|:heavy_check_mark:|`page` query parameter|:heavy_check_mark:|:x:
 |`/incidents/:id`|GET|:x:|`:id` of the incident|:heavy_check_mark:|:x:
 |`/incidents`|POST|:x:|Body with new incident data|:heavy_check_mark:|:heavy_check_mark:
 |`/incidents/:id`|DELETE|:x:|`:id` of the incident|:heavy_check_mark:|:heavy_check_mark:
 |`/ngo_incidents`|GET|:x:|:x:|:heavy_check_mark:|:heavy_check_mark:
 
-> Routes with `pagination` checked also accepts the `page` query parameter and routes with `JWT` checked expect an `Authorization` header.
+> Routes with `JWT` checked expect an `Authorization` header. See [JWT](#jwt) section for more information.
 
 ### Requests
 * `POST /session`
