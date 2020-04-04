@@ -3,6 +3,6 @@ Project developed during the OmniStack Week 11.0. This application permits NGOs 
 
 Remember to start the API before the web and or app application version, you can se more information about how to do this in each folder:
 
-* [API](https://github.com/DiegoVictor/omnistack/tree/master/11/api)
-* [Web](https://github.com/DiegoVictor/omnistack/tree/master/11/web)
-* [App](https://github.com/DiegoVictor/omnistack/tree/master/11/app)
+* [API](https://github.com/DiegoVictor/bethehero/tree/master/api)
+* [Web](https://github.com/DiegoVictor/bethehero/tree/master/web)
+* [App](https://github.com/DiegoVictor/bethehero/tree/master/app)
