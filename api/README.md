@@ -1,11 +1,8 @@
 # Be The Hero API
-[![Build Status](https://img.shields.io/travis/DiegoVictor/bethehero/master?style=flat-square)](https://travis-ci.org/DiegoVictor/bethehero)
 [![airbnb-style](https://flat.badgen.net/badge/eslint/airbnb/ff5a5f?icon=airbnb)](https://github.com/airbnb/javascript)
-[![Code Coverage](https://flat.badgen.net/codecov/c/github/arb/celebrate?icon=codecov)](https://codecov.io/gh/arb/celebrate)
-<a aria-label="Expo is free to use" href="https://github.com/DiegoVictor/bethehero/blob/master/LICENSE" target="_blank">
-  <img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-success.svg?style=flat-square&color=33CC12" target="_blank" />
-</a><br>
-<a href="https://insomnia.rest/run/?label=OmniStack11&uri=https%3A%2F%2Fraw.githubusercontent.com%2FDiegoVictor%2Fomnistack%2Fmaster%2F11%2Fapi%2FInsomnia_2020-04-02.json" target="_blank"><img src="https://insomnia.rest/images/run.svg" alt="Run in Insomnia"></a>
+[![MIT License](https://img.shields.io/npm/l/@testing-library/jest-dom.svg?style=flat-square)](https://github.com/DiegoVictor/bethehero/blob/master/LICENSE)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)<br>
+[![Run in Insomnia}](https://insomnia.rest/images/run.svg)](https://insomnia.rest/run/?label=Be%20The%20Hero&uri=https%3A%2F%2Fraw.githubusercontent.com%2FDiegoVictor%2Fomnistack%2Fmaster%2F11%2Fapi%2FInsomnia_2020-04-04.json)
 
 
 Responsible for provide data to the [`web`](https://github.com/DiegoVictor/bethehero/tree/master/web) and [`mobile`](https://github.com/DiegoVictor/bethehero/tree/master/app) front-ends. Permit to register NGOs and manage its incidents. The app has rate limit, brute force prevention, pagination, pagination's link header (to previous, next, first and last page), friendly errors, use JWT to logins and validation, also a simple versioning was made.
@@ -73,7 +70,7 @@ In this file you may configure your Redis database connection, JWT settings, the
 |JWT_EXPIRATION_TIME|How long time will be the token valid. See [jsonwebtoken](https://github.com/auth0/node-jsonwebtoken#usage) repo for more information.|`7d`
 |REDIS_HOST|Redis host. For Windows users using Docker Toolbox maybe be necessary in your `.env` file set the host to `192.168.99.100` (docker machine IP) instead of localhost or `127.0.0.1`.|`127.0.0.1`
 |REDIS_PORT|Redis port.|`6379`
-|DOCS_URL|An url to docs where users can find more information about the app's internal code errors.|`https://github.com/DiegoVictor/omnistack/tree/master/11/api#errors-reference`
+|DOCS_URL|An url to docs where users can find more information about the app's internal code errors.|`https://github.com/DiegoVictor/bethehero/blob/master/api/README.md#errors-reference`
 
 ### Rate Limit & Brute Force (Optional)
 The project comes pre-configurated, but you can adjust it as your needs.
