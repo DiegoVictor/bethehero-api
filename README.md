@@ -1,36 +1,213 @@
-# Install
+# Be The Hero API
+[![Build Status](https://img.shields.io/travis/DiegoVictor/bethehero/master?style=flat-square)](https://travis-ci.org/DiegoVictor/bethehero)
+[![airbnb-style](https://flat.badgen.net/badge/eslint/airbnb/ff5a5f?icon=airbnb)](https://github.com/airbnb/javascript)
+[![Code Coverage](https://flat.badgen.net/codecov/c/github/arb/celebrate?icon=codecov)](https://codecov.io/gh/arb/celebrate)
+<a aria-label="Expo is free to use" href="https://github.com/DiegoVictor/bethehero/blob/master/LICENSE" target="_blank">
+  <img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-success.svg?style=flat-square&color=33CC12" target="_blank" />
+</a><br>
+<a href="https://insomnia.rest/run/?label=OmniStack11&uri=https%3A%2F%2Fraw.githubusercontent.com%2FDiegoVictor%2Fomnistack%2Fmaster%2F11%2Fapi%2FInsomnia_2020-04-02.json" target="_blank"><img src="https://insomnia.rest/images/run.svg" alt="Run in Insomnia"></a>
+
+
+Responsible for provide data to the [`web`](https://github.com/DiegoVictor/bethehero/tree/master/web) and [`mobile`](https://github.com/DiegoVictor/bethehero/tree/master/app) front-ends. Permit to register NGOs and manage its incidents. The app has rate limit, brute force prevention, pagination, pagination's link header (to previous, next, first and last page), friendly errors, use JWT to logins and validation, also a simple versioning was made.
+
+## Table of Contents
+* [Installing](#installing)
+  * [Configuring](#configuring)
+    * [Redis](#redis)
+    * [SQLite](#sqlite)
+      * [Migrations](#migrations)
+    * [.env](#env)
+    * [Rate Limit & Brute Force (Optional)](#rate-limit--brute-force-optional)
+* [Usage](#usage)
+  * [Error Handling](#error-handling)
+    * [Errors Reference](#errors-reference)
+  * [Pagination](#pagination)
+    * [Link Header](#link-header)
+    * [X-Total-Count](#x-total-count)
+  * [JWT](#jwt)
+  * [Versioning](#versioning)
+  * [Routes](#routes)
+    * [Requests](#requests)
+* [Running the tests](#running-the-tests)
+
+# Installing
+Easy peasy lemon squeezy:
 ```
 $ yarn
 ```
-> Was installed and configured the `eslint` and `prettier` to keep the code clean and patterned.
+Or:
+```
+$ npm install
+```
+> Was installed and configured the [`eslint`](https://eslint.org/) and [`prettier`](https://prettier.io/) to keep the code clean and patterned.
 
-# Databases
-The application use just one database: SQLite. For more information to how to setup your database see:
+## Configuring
+The application use two databases: [SQLite](https://www.sqlite.org/index.html) and [Redis](https://redis.io/).
+
+### Redis
+For the fastest setup is recommended to use [docker](https://www.docker.com), you can create a redis container like so:
+```
+$ docker run --name bethehero-redis -d -p 6379:6379 redis:alpine
+```
+
+### SQLite
+For more information to how to setup your database see:
 * [knexfile.js](http://knexjs.org/#knexfile)
-> You can find the application's `knexfile.js` file in the root folder.
+> You can find the application's `knexfile.js` file in the root folder. It already comes with `test` and `development` connection configured, so you will update it only when deploying or staging!
 
-## Migrations
-Remember to run the migrations:
+#### Migrations
+Remember to run the SQLite database migrations:
 ```
 $ npx knex migrate:latest
 ```
-> See more on [Migrations](http://knexjs.org/#Migrations).
+> See more information on [Knex Migrations](http://knexjs.org/#Migrations).
 
-# .env
-Rename the `.env.example` to `.env` then just update with yours settings.
-> The knex configuration used rely on the `APP_ENV` configurated.
+### .env
+In this file you may configure your Redis database connection, JWT settings, the environment, app's port and a url to documentation (this will be returned with error responses, see [error section](#errors-reference)). Rename the `.env.example` in the root directory to `.env` then just update with yours settings.
 
-# Start Up
+|key|description|default
+|---|---|---
+|APP_PORT|Port number where the app will run.|`3333`
+|NODE_ENV|App environment. The knex's connection configuration used rely on the this key value, so if the environment is `development` the knex connection used will be`development`.|`development`
+|JWT_SECRET|A alphanumeric random string. Used to create signed tokens.|-
+|JWT_EXPIRATION_TIME|How long time will be the token valid. See [jsonwebtoken](https://github.com/auth0/node-jsonwebtoken#usage) repo for more information.|`7d`
+|REDIS_HOST|Redis host. For Windows users using Docker Toolbox maybe be necessary in your `.env` file set the host to `192.168.99.100` (docker machine IP) instead of localhost or `127.0.0.1`.|`127.0.0.1`
+|REDIS_PORT|Redis port.|`6379`
+|DOCS_URL|An url to docs where users can find more information about the app's internal code errors.|`https://github.com/DiegoVictor/omnistack/tree/master/11/api#errors-reference`
+
+### Rate Limit & Brute Force (Optional)
+The project comes pre-configurated, but you can adjust it as your needs.
+
+* `src/config/rate_limit.js`
+
+|key|description|default
+|---|---|---
+|duration|Number of seconds before consumed points are reset.|`300`
+|points|Maximum number of points can be consumed over duration.|`10`
+
+> The lib [`rate-limiter-flexible`](https://github.com/animir/node-rate-limiter-flexible) was used to rate the api's limits, for more configuration information go to [Options](https://github.com/animir/node-rate-limiter-flexible/wiki/Options#options) page.
+
+* `src/config/bruteforce.js`
+> `rate-limiter-flexible` was also used to configure brute force prevention, but an different method of configuration that you can see in [ExpressBrute migration](https://github.com/animir/node-rate-limiter-flexible/wiki/ExpressBrute-migration#options).
+
+# Usage
+To start up the app run:
 ```
 $ yarn start
 ```
 
-# Tests
+## Error Handling
+Instead of only throw a simple message and HTTP Status Code this API return friendly errors:
+```json
+{
+  "statusCode": 429,
+  "error": "Too Many Requests",
+  "message": "Too Many Requests",
+  "code": 449,
+  "docs": "https://github.com/DiegoVictor/omnistack/tree/master/11/api#errors"
+}
+```
+> Errors are implemented with [@hapi/boom](https://github.com/hapijs/boom).
+> As you can see a url to error docs are returned too. To configure this url update the `DOCS_URL` key from `.env` file.
+> In the next sub section ([Errors Reference](#errors-reference)) you can see the `code`s error description.
+
+### Errors Reference
+|code|message|description
+|---|---|---
+|141|This incident is not owned by your NGO|The referenced incident is from another NGO.
+|144|Incident not found|The `id` sent not references an existing incident in the database.
+|240|Your NGO was not found|The NGO `id` sent through the login does not references an existing NGO in the database.
+|244|NGO not found|The `id` sent does not references an existing NGO in the database.
+|340|Token not provided|The JWT token was not sent.
+|341|Token invalid|The JWT token provided is invalid or expired.
+|449|Too Many Requests|You reached at the requests limit.
+
+## Pagination
+All the routes with pagination returns 5 records per page, to navigate to other pages just send the `page` query parameter.
+
+* To get the third page of incidents:
+```
+GET http://localhost:3333/v1/incidents?page=3
+```
+
+### Link Header
+Also in the headers of every route with pagination the `Link` header is returned with links to `first`, `last`, `next` and `prev` (previous) page.
+```
+<http://localhost:3333/v1/incidents?page=7>; rel="last",
+<http://localhost:3333/v1/incidents?page=4>; rel="next",
+<http://localhost:3333/v1/incidents?page=1>; rel="first",
+<http://localhost:3333/v1/incidents?page=2>; rel="prev"
+```
+> See more about this header in this MDN web doc: [Link - HTTP](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Link).
+
+### X-Total-Count
+Another header returned in routes with pagination, this bring the total records amount.
+
+## JWT
+A few routes expect a Bearer JWT Token in an `Authorization` header.
+> You can see these routes in the [routes](#routes) section.
+```
+GET http://localhost:3333/v1/ngo_incidents?page=1 Authorization: Bearer <token>
+```
+> To achieve this token you just need authenticate through the `/sessions` route and it will be returned in the `token` key.
+
+## Versioning
+A simple versioning was made. Just remember to set after the `<host>:<port>` the `/v1/` string to your requests url.
+<pre>
+GET http://localhost:3333/v1/ngos
+</pre>
+
+## Routes
+|route|HTTP Method|pagination|params|validation|JWT
+|:---|:---:|:---:|:---:|:---:|:---:
+|`/sessions`|POST|:x:|Body with NGO `id`|:heavy_check_mark:|:x:
+|`/ngos`|GET|:heavy_check_mark:|:x:|:heavy_check_mark:|:x:
+|`/ngos/:id`|GET|:x:|`:id` of the NGO|:heavy_check_mark:|:x:
+|`/ngos`|POST|:x:|Body with new NGO data|:heavy_check_mark:|:x:
+|`/incidents`|GET|:heavy_check_mark:|:x:|:heavy_check_mark:|:x:
+|`/incidents/:id`|GET|:x:|`:id` of the incident|:heavy_check_mark:|:x:
+|`/incidents`|POST|:x:|Body with new incident data|:heavy_check_mark:|:heavy_check_mark:
+|`/incidents/:id`|DELETE|:x:|`:id` of the incident|:heavy_check_mark:|:heavy_check_mark:
+|`/ngo_incidents`|GET|:x:|:x:|:heavy_check_mark:|:heavy_check_mark:
+
+> Routes with `pagination` checked also accepts the `page` query parameter and routes with `JWT` checked expect an `Authorization` header.
+
+### Requests
+* `POST /session`
+
+Request body:
+```json
+{
+	"id": "e5a76988"
+}
+```
+
+* `POST /ngos`
+
+Request body:
+```json
+{
+	"name": "Doe and Sons",
+	"email": "johndoe@gmail.com",
+	"whatsapp": "39379976591",
+	"city": "Corinefurt",
+	"uf": "NE"
+}
+```
+
+* `POST /incidents`
+
+Request body:
+```json
+{
+	"title": "Forward Tactics Representative",
+	"description": "Adipisci non assumenda ad sequi.",
+	"value": 512.93
+}
+```
+
+# Running the tests
 ```
 $ yarn test
 ```
-
-# Insomnia
-In the root directory you can find an [Insomnia](https://insomnia.rest/) file, it has some useful requests to configure and test the app. Or click below:
-
-<a href="https://insomnia.rest/run/?label=OmniStack11&uri=https%3A%2F%2Fraw.githubusercontent.com%2FDiegoVictor%2Fomnistack%2Fmaster%2F11%2Fapi%2FInsomnia_2020-03-31.json" target="_blank"><img src="https://insomnia.rest/images/run.svg" alt="Run in Insomnia"></a>
+> You can see the coverage report inside `tests/coverage`
