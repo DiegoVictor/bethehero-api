@@ -42,13 +42,13 @@ $ npm install
 The application use two databases: [SQLite](https://www.sqlite.org/index.html) and [Redis](https://redis.io/).
 
 ### Redis
-For the fastest setup is recommended to use [docker](https://www.docker.com), you can create a redis container like so:
+Responsible to store data utilized by the rate limit middleware and brute force prevention. For the fastest setup is recommended to use [docker](https://www.docker.com), you can create a redis container like so:
 ```
 $ docker run --name bethehero-redis -d -p 6379:6379 redis:alpine
 ```
 
 ### SQLite
-For more information to how to setup your database see:
+Store the NGOs and its incidents. For more information to how to setup your database see:
 * [knexfile.js](http://knexjs.org/#knexfile)
 > You can find the application's `knexfile.js` file in the root folder. It already comes with `test` and `development` connection configured, so you will update it only when deploying or staging!
 
