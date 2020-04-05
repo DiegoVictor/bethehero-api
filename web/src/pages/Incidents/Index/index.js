@@ -13,18 +13,16 @@ import { Container, Incidents, Header } from './styles';
 export default () => {
   const {
     ngo: { name, token },
+    setNgo,
   } = useContext(NgoContext);
   const [incidents, setIncidents] = useState([]);
   const history = useHistory();
 
-  const handleLogout = useCallback(
-    (setNgo) => {
-      localStorage.removeItem('bethehero_ngo');
-      setNgo({});
-      history.push('/');
-    },
-    [history]
-  );
+  const handleLogout = useCallback(() => {
+    localStorage.removeItem('bethehero_ngo');
+    setNgo({});
+    history.push('/');
+  }, [history, setNgo]);
 
   const handleDeleteIncident = useCallback(
     async (incident_id) => {
@@ -46,7 +44,7 @@ export default () => {
 
   useEffect(() => {
     (async () => {
-      const { data } = await api.get('/ong_incidents', {
+      const { data } = await api.get('/ngo_incidents', {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -66,13 +64,9 @@ export default () => {
             <Button type="button">Novo caso</Button>
           </Link>
 
-          <NgoContext.Consumer>
-            {({ setNgo }) => (
-              <button type="button" onClick={() => handleLogout(setNgo)}>
-                <FiPower size={20} color="#E02041" />
-              </button>
-            )}
-          </NgoContext.Consumer>
+          <button type="button" onClick={handleLogout}>
+            <FiPower size={20} color="#E02041" />
+          </button>
         </Header>
 
         <h1>Casos</h1>
