@@ -10,26 +10,16 @@ import { Container, Form } from './styles';
 import Link from '~/components/Link';
 import Input from '~/components/Input';
 import api from '~/services/api';
-import UserContext from '~/contexts/User';
+import NgoContext from '~/contexts/Ngo';
 
 export default () => {
-  // const history = useHistory();
-  const handleLogin = useCallback(async ({ id }, setUser) => {
+  const handleLogin = useCallback(async ({ id }, setNgo) => {
     try {
       const { data } = await api.post('sessions', { id });
-      localStorage.setItem(
-        'bethehero_user',
-        JSON.stringify({
-          id,
-          name: data.ong.name,
-        })
-      );
-      // TODO update context
-      setUser({ id, name: data.ong.name });
-      // history.push('/incidents');
-    } catch (err) {
-      console.log(err);
+      localStorage.setItem('bethehero_ngo', JSON.stringify(data));
 
+      setNgo({ name: data.ngo.name, token: data.token });
+    } catch (err) {
       alert('Usuário ou senha incorreto(s)!');
     }
   }, []);
@@ -38,9 +28,9 @@ export default () => {
       <Container>
         <section>
           <img src={Logo} alt="Be The Hero" />
-          <UserContext.Consumer>
-            {({ setUser }) => (
-              <Form onSubmit={(data) => handleLogin(data, setUser)}>
+          <NgoContext.Consumer>
+            {({ setNgo }) => (
+              <Form onSubmit={(data) => handleLogin(data, setNgo)}>
                 <h1>Faça seu logon</h1>
 
                 <Input name="id" placeholder="Seu ID" />
@@ -52,7 +42,7 @@ export default () => {
                 </Link>
               </Form>
             )}
-          </UserContext.Consumer>
+          </NgoContext.Consumer>
         </section>
         <img src={Heroes} alt="Heroes" />
       </Container>

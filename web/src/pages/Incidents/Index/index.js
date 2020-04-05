@@ -6,21 +6,21 @@ import Logo from '~/assets/logo.svg';
 import Button from '~/components/Button';
 import Layout from '~/components/Layout';
 import Link from '~/components/Link';
-import UserContext from '~/contexts/User';
+import NgoContext from '~/contexts/Ngo';
 import api from '~/services/api';
 import { Container, Incidents, Header } from './styles';
 
 export default () => {
   const {
-    user: { id, name },
-  } = useContext(UserContext);
+    ngo: { name, token },
+  } = useContext(NgoContext);
   const [incidents, setIncidents] = useState([]);
   const history = useHistory();
 
   const handleLogout = useCallback(
-    (setUser) => {
-      localStorage.removeItem('bethehero_user');
-      setUser({});
+    (setNgo) => {
+      localStorage.removeItem('bethehero_ngo');
+      setNgo({});
       history.push('/');
     },
     [history]
@@ -31,7 +31,7 @@ export default () => {
       try {
         await api.delete(`/incidents/${incident_id}`, {
           headers: {
-            Authorization: id,
+            Authorization: `Bearer ${token}`,
           },
         });
         setIncidents(
@@ -41,19 +41,19 @@ export default () => {
         alert('Erro ao remover caso, tente novamente!');
       }
     },
-    [incidents, id]
+    [incidents, token]
   );
 
   useEffect(() => {
     (async () => {
       const { data } = await api.get('/ong_incidents', {
         headers: {
-          Authorization: id,
+          Authorization: `Bearer ${token}`,
         },
       });
       setIncidents(data);
     })();
-  }, [id]);
+  }, [token]);
 
   return (
     <Layout>
@@ -66,13 +66,13 @@ export default () => {
             <Button type="button">Novo caso</Button>
           </Link>
 
-          <UserContext.Consumer>
-            {({ setUser }) => (
-              <button type="button" onClick={() => handleLogout(setUser)}>
+          <NgoContext.Consumer>
+            {({ setNgo }) => (
+              <button type="button" onClick={() => handleLogout(setNgo)}>
                 <FiPower size={20} color="#E02041" />
               </button>
             )}
-          </UserContext.Consumer>
+          </NgoContext.Consumer>
         </Header>
 
         <h1>Casos</h1>

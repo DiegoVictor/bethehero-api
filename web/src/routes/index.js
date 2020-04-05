@@ -6,17 +6,16 @@ import Login from '~/pages/Login';
 import Register from '~/pages/Register';
 import Incidents from '~/pages/Incidents/Index';
 import IncidentCreate from '~/pages/Incidents/Create';
-import UserContext from '~/contexts/User';
+import NgoContext from '~/contexts/Ngo';
 
 export default () => {
-  const { user: ong } = useContext(UserContext);
-  const [user, setUser] = useState(ong);
+  const [ngo, setNgo] = useState(useContext(NgoContext).ngo);
 
   return (
-    <UserContext.Provider
+    <NgoContext.Provider
       value={{
-        user,
-        setUser,
+        ngo,
+        setNgo,
       }}
     >
       <BrowserRouter>
@@ -26,6 +25,6 @@ export default () => {
         <Route path="/incidents" exact privated component={Incidents} />
         <Route path="/incidents/create" privated component={IncidentCreate} />
       </BrowserRouter>
-    </UserContext.Provider>
+    </NgoContext.Provider>
   );
 };

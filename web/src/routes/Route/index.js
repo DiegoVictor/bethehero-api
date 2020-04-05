@@ -2,7 +2,7 @@ import React from 'react';
 import { Route as ReactRouterRoute, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-import UserContext from '~/contexts/User';
+import NgoContext from '~/contexts/Ngo';
 
 export default function Route({
   privated,
@@ -11,12 +11,12 @@ export default function Route({
   ...rest
 }) {
   return (
-    <UserContext.Consumer>
-      {({ user }) => (
+    <NgoContext.Consumer>
+      {({ ngo }) => (
         <ReactRouterRoute
           {...rest}
           render={(props) => {
-            if (!user.id) {
+            if (!ngo.token) {
               if (privated) {
                 return <Redirect to="/" />;
               }
@@ -28,7 +28,7 @@ export default function Route({
           }}
         />
       )}
-    </UserContext.Consumer>
+    </NgoContext.Consumer>
   );
 }
 

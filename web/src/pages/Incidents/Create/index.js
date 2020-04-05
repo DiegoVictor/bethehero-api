@@ -7,12 +7,14 @@ import Layout from '~/components/Layout';
 import Link from '~/components/Link';
 import Button from '~/components/Button';
 import Input from '~/components/Input';
-import UserContext from '~/contexts/User';
+import NgoContext from '~/contexts/Ngo';
 import api from '~/services/api';
 import { Container, Form, Section } from './styles';
 
 export default () => {
-  const { id } = useContext(UserContext);
+  const {
+    ngo: { token },
+  } = useContext(NgoContext);
   const history = useHistory();
   const handleCreate = useCallback(
     async ({ title, description, value }) => {
@@ -22,7 +24,7 @@ export default () => {
           { title, description, value },
           {
             headers: {
-              Authorization: id,
+              Authorization: `Bearer ${token}`,
             },
           }
         );
@@ -32,7 +34,7 @@ export default () => {
         alert('Erro ao cadastrar caso, tente novamente!');
       }
     },
-    [history, id]
+    [history, token]
   );
 
   return (
