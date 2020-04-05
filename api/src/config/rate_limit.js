@@ -1,4 +1,4 @@
 export default {
-  duration: 300,
+  duration: 1,
   points: 10,
 };
