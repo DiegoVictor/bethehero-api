@@ -15,7 +15,7 @@ export default () => {
   const handleRegister = useCallback(
     async ({ name, email, whatsapp, city, state }) => {
       try {
-        const { data } = await api.post('ongs', {
+        const { data } = await api.post('ngos', {
           name,
           email,
           whatsapp,
