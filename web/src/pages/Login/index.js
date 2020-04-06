@@ -5,12 +5,12 @@ import * as Yup from 'yup';
 import Heroes from '~/assets/heroes.png';
 import Logo from '~/assets/logo.svg';
 import Button from '~/components/Button';
-import Layout from '~/components/Layout';
-import { Container, Form } from './styles';
-import Link from '~/components/Link';
 import Input from '~/components/Input';
-import api from '~/services/api';
+import Layout from '~/components/Layout';
+import Link from '~/components/Link';
 import NgoContext from '~/contexts/Ngo';
+import api, { setAuthorization } from '~/services/api';
+import { Container, Form } from './styles';
 
 export default () => {
   const form_ref = useRef(null);
@@ -28,6 +28,7 @@ export default () => {
         const { data } = await api.post('sessions', { id });
         localStorage.setItem('bethehero_ngo', JSON.stringify(data));
 
+        setAuthorization(data.token);
         setNgo({ name: data.ngo.name, token: data.token });
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
@@ -37,8 +38,8 @@ export default () => {
           });
           form_ref.current.setErrors(validation_errors);
         } else {
-        alert('Usuário ou senha incorreto(s)!');
-      }
+          alert('Usuário ou senha incorreto(s)!');
+        }
       }
     },
     [setNgo]

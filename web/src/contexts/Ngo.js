@@ -1,4 +1,5 @@
 import { createContext } from 'react';
+import { setAuthorization } from '~/services/api';
 
 let ngo = {};
 if (typeof localStorage.bethehero_ngo !== 'undefined') {
@@ -10,6 +11,7 @@ if (typeof localStorage.bethehero_ngo !== 'undefined') {
     name,
     token,
   };
+  setAuthorization(token);
 }
 
 export default createContext({

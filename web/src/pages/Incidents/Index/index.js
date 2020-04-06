@@ -12,7 +12,7 @@ import { Container, Incidents, Header } from './styles';
 
 export default () => {
   const {
-    ngo: { name, token },
+    ngo: { name },
     setNgo,
   } = useContext(NgoContext);
   const [incidents, setIncidents] = useState([]);
@@ -27,11 +27,7 @@ export default () => {
   const handleDeleteIncident = useCallback(
     async (incident_id) => {
       try {
-        await api.delete(`/incidents/${incident_id}`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        await api.delete(`/incidents/${incident_id}`);
         setIncidents(
           incidents.filter((incident) => incident.id !== incident_id)
         );
@@ -39,19 +35,15 @@ export default () => {
         alert('Erro ao remover caso, tente novamente!');
       }
     },
-    [incidents, token]
+    [incidents]
   );
 
   useEffect(() => {
     (async () => {
-      const { data } = await api.get('/ngo_incidents', {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const { data } = await api.get('/ngo_incidents');
       setIncidents(data);
     })();
-  }, [token]);
+  }, []);
 
   return (
     <Layout>

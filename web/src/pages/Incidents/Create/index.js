@@ -13,9 +13,6 @@ import api from '~/services/api';
 import { Container, Form, Section } from './styles';
 
 export default () => {
-  const {
-    ngo: { token },
-  } = useContext(NgoContext);
   const history = useHistory();
   const form_ref = useRef(null);
 
@@ -48,7 +45,7 @@ export default () => {
       }
       }
     },
-    [history, token]
+    [history]
   );
 
   return (
