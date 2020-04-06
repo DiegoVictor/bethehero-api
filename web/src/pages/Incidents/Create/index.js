@@ -31,6 +31,7 @@ export default () => {
           { title, description, value },
           { abortEarly: false }
         );
+        await api.post('incidents', { title, description, value });
 
         history.push('/incidents');
       } catch (err) {
