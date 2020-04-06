@@ -1,6 +1,7 @@
-import React, { useCallback, useContext } from 'react';
+import React, { useCallback, useRef } from 'react';
 import { FiArrowLeft } from 'react-icons/fi';
 import { useHistory } from 'react-router-dom';
+import * as Yup from 'yup';
 
 import Logo from '~/assets/logo.svg';
 import Layout from '~/components/Layout';
@@ -16,22 +17,35 @@ export default () => {
     ngo: { token },
   } = useContext(NgoContext);
   const history = useHistory();
+  const form_ref = useRef(null);
+
   const handleCreate = useCallback(
     async ({ title, description, value }) => {
       try {
-        await api.post(
-          'incidents',
+        const schema = Yup.object().shape({
+          title: Yup.string().min(3).required('O título é obrigatório'),
+          description: Yup.string()
+            .min(10)
+            .required('A descrição é obrigatória'),
+          value: Yup.string().required('O valor é obrigatório'),
+        });
+
+        await schema.validate(
           { title, description, value },
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
+          { abortEarly: false }
         );
 
         history.push('/incidents');
       } catch (err) {
+        if (err instanceof Yup.ValidationError) {
+          const validation_errors = {};
+          err.inner.forEach((error) => {
+            validation_errors[error.path] = error.message;
+          });
+          form_ref.current.setErrors(validation_errors);
+        } else {
         alert('Erro ao cadastrar caso, tente novamente!');
+      }
       }
     },
     [history, token]
@@ -54,10 +68,16 @@ export default () => {
             </Link>
           </Section>
 
-          <Form onSubmit={handleCreate}>
+          <Form ref={form_ref} onSubmit={handleCreate}>
             <Input name="title" placeholder="Título do caso" />
             <Input type="textarea" name="description" placeholder="Descrição" />
-            <Input name="value" placeholder="Valor em reais" />
+            <Input
+              name="value"
+              type="number"
+              min="1"
+              step="0.01"
+              placeholder="Valor em reais"
+            />
 
             <Button type="submit">Cadastrar</Button>
           </Form>
