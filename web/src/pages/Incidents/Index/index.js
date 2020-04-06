@@ -50,7 +50,7 @@ export default () => {
       <Container>
         <Header>
           <img src={Logo} alt="Be The Hero" />
-          <span>Olá {name}</span>
+          <span>Bem-vindo(a) {name}</span>
 
           <Link to="/incidents/create">
             <Button type="button">Novo caso</Button>
