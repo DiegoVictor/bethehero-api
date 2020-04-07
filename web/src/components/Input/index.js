@@ -2,9 +2,9 @@ import React, { useEffect, useRef } from 'react';
 import { useField } from '@unform/core';
 import PropTypes from 'prop-types';
 
-import { ErrorMessage } from './styles';
+import { Container, ErrorMessage } from './styles';
 
-export default function Input({ name, type, ...rest }) {
+export default function Input({ name, type, placeholder, ...rest }) {
   const inputRef = useRef(null);
   const { fieldName, defaultValue = '', registerField, error } = useField(name);
 
@@ -17,27 +17,33 @@ export default function Input({ name, type, ...rest }) {
   }, [fieldName, registerField]);
 
   return (
-    <>
+    <Container {...rest}>
       {type === 'textarea' ? (
-        <textarea ref={inputRef} defaultValue={defaultValue} {...rest} />
+        <textarea
+          ref={inputRef}
+          placeholder={placeholder}
+          defaultValue={defaultValue}
+        />
       ) : (
         <input
           type={type}
           ref={inputRef}
+          placeholder={placeholder}
           defaultValue={defaultValue}
-          {...rest}
         />
       )}
       {error && <ErrorMessage>{error}</ErrorMessage>}
-    </>
+    </Container>
   );
 }
 
 Input.propTypes = {
   name: PropTypes.string.isRequired,
+  placeholder: PropTypes.string,
   type: PropTypes.string,
 };
 
 Input.defaultProps = {
   type: 'text',
+  placeholder: '',
 };
