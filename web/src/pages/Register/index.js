@@ -67,7 +67,7 @@ export default () => {
           form_ref.current.setErrors(validation_errors);
         } else {
           toast.error('Erro ao cadastrar ONG, tente novamente!');
-      }
+        }
       }
     },
     [history]
@@ -97,7 +97,7 @@ export default () => {
 
             <div>
               <Input name="city" placeholder="Cidade" />
-              <Input name="state" placeholder="UF" style={{ width: 80 }} />
+              <Input name="state" placeholder="UF" style={{ width: 90 }} />
             </div>
 
             <Button type="submit">Cadastrar</Button>

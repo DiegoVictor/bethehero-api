@@ -46,10 +46,10 @@ export const Form = styled(Frm)`
     margin-top: 8px;
   }
 
-  div {
+  > div {
     display: flex;
 
-    input + input {
+    > div + div {
       margin-left: 8px;
     }
   }

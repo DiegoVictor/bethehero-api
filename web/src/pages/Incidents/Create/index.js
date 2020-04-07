@@ -22,7 +22,7 @@ export default () => {
         const schema = Yup.object().shape({
           title: Yup.string().min(3).required('O título é obrigatório'),
           description: Yup.string()
-            .min(10)
+            .min(10, 'A descrição deve conter pelo menos 10 caracteres')
             .required('A descrição é obrigatória'),
           value: Yup.string().required('O valor é obrigatório'),
         });
