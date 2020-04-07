@@ -2,6 +2,8 @@ import React, { useCallback } from 'react';
 import { FiArrowLeft } from 'react-icons/fi';
 import { useHistory } from 'react-router-dom';
 
+import { toast } from 'react-toastify';
+
 import Logo from '~/assets/logo.svg';
 import Button from '~/components/Button';
 import Input from '~/components/Input';
@@ -23,11 +25,19 @@ export default () => {
           uf: state,
         });
 
-        alert(`ONG cadastrada com sucesso, ID: ${data.id}`);
+        toast.success(
+          `ONG cadastrada com sucesso, ID: ${data.id}. Clique para copiar!`,
+          {
+            closeOnClick: false,
+            onClick: () => {
+              navigator.clipboard.writeText(data.id);
+            },
+          }
+        );
 
         history.push('/');
       } catch (err) {
-        alert('Erro ao cadastrar ONG, tente novamente!');
+          toast.error('Erro ao cadastrar ONG, tente novamente!');
       }
     },
     [history]

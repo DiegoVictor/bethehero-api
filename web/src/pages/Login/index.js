@@ -1,6 +1,7 @@
 import React, { useCallback, useContext, useRef } from 'react';
 import { FiPlusSquare } from 'react-icons/fi';
 import * as Yup from 'yup';
+import { toast } from 'react-toastify';
 
 import Heroes from '~/assets/heroes.png';
 import Logo from '~/assets/logo.svg';
@@ -38,7 +39,7 @@ export default () => {
           });
           form_ref.current.setErrors(validation_errors);
         } else {
-          alert('Usuário ou senha incorreto(s)!');
+          toast.error('Usuário e/ou senha incorreto(s)!');
         }
       }
     },

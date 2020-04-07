@@ -1,6 +1,7 @@
 import React, { useContext, useState, useEffect, useCallback } from 'react';
 import { FiPower, FiTrash2 } from 'react-icons/fi';
 import { useHistory } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 import Logo from '~/assets/logo.svg';
 import Button from '~/components/Button';
@@ -31,8 +32,9 @@ export default () => {
         setIncidents(
           incidents.filter((incident) => incident.id !== incident_id)
         );
+        toast.success('Caso removido com sucesso!');
       } catch (err) {
-        alert('Erro ao remover caso, tente novamente!');
+        toast.error('Erro ao remover caso, tente novamente!');
       }
     },
     [incidents]

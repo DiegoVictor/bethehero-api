@@ -3,6 +3,7 @@ import { FiArrowLeft } from 'react-icons/fi';
 import { useHistory } from 'react-router-dom';
 import * as Yup from 'yup';
 
+import { toast } from 'react-toastify';
 import Logo from '~/assets/logo.svg';
 import Button from '~/components/Button';
 import Input from '~/components/Input';
@@ -31,6 +32,7 @@ export default () => {
           { abortEarly: false }
         );
         await api.post('incidents', { title, description, value });
+        toast.success('Caso cadastrado com sucesso!');
 
         history.push('/incidents');
       } catch (err) {
@@ -41,7 +43,7 @@ export default () => {
           });
           form_ref.current.setErrors(validation_errors);
         } else {
-          alert('Erro ao cadastrar caso, tente novamente!');
+          toast.error('Erro ao cadastrar caso, tente novamente!');
         }
       }
     },
