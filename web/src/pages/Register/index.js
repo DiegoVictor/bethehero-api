@@ -1,7 +1,7 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useRef } from 'react';
 import { FiArrowLeft } from 'react-icons/fi';
 import { useHistory } from 'react-router-dom';
-
+import * as Yup from 'yup';
 import { toast } from 'react-toastify';
 
 import Logo from '~/assets/logo.svg';
@@ -14,9 +14,31 @@ import api from '~/services/api';
 
 export default () => {
   const history = useHistory();
+  const form_ref = useRef(null);
+
   const handleRegister = useCallback(
     async ({ name, email, whatsapp, city, state }) => {
       try {
+        const schema = Yup.object().shape({
+          name: Yup.string().min(3).required('O nome da ONG é obrigatório'),
+          email: Yup.string()
+            .email('Digite um email válido')
+            .required('O email é obrigatório'),
+          whatsapp: Yup.string()
+            .required('O WhatsApp é obrigatório')
+            .min(10, 'Um número válido deve conter pelo menos 10 caracteres')
+            .max(11, 'Um número válido deve conter no máximo 11 caracteres'),
+          city: Yup.string().required('A cidade é obrigatória'),
+          state: Yup.string()
+            .required('O estado é obrigatório')
+            .max(2, 'Digite apenas a UF do estado'),
+        });
+
+        await schema.validate(
+          { name, email, whatsapp, city, state },
+          { abortEarly: false }
+        );
+
         const { data } = await api.post('ngos', {
           name,
           email,
@@ -37,7 +59,15 @@ export default () => {
 
         history.push('/');
       } catch (err) {
+        if (err instanceof Yup.ValidationError) {
+          const validation_errors = {};
+          err.inner.forEach((error) => {
+            validation_errors[error.path] = error.message;
+          });
+          form_ref.current.setErrors(validation_errors);
+        } else {
           toast.error('Erro ao cadastrar ONG, tente novamente!');
+      }
       }
     },
     [history]
@@ -60,7 +90,7 @@ export default () => {
             </Link>
           </Section>
 
-          <Form onSubmit={handleRegister}>
+          <Form ref={form_ref} onSubmit={handleRegister}>
             <Input name="name" placeholder="Nome da ONG" />
             <Input name="email" type="email" placeholder="Email" />
             <Input name="whatsapp" placeholder="WhatsApp" />
