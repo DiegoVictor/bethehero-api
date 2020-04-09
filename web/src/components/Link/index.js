@@ -1,16 +1,21 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
-import { Container } from './styles';
+export default styled(Link)`
+  align-items: center;
+  color: #41414d;
+  display: flex;
+  font-size: 18px;
+  font-weight: 500;
+  margin-top: 40px;
+  text-decoration: none;
+  transition: opacity 0.2s;
 
-export default function Link({ to, children }) {
-  return <Container to={to}>{children}</Container>;
-}
+  &:hover {
+    opacity: 0.8;
+  }
 
-Link.propTypes = {
-  to: PropTypes.string.isRequired,
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.element,
-  ]).isRequired,
-};
+  svg {
+    margin-right: 8px;
+  }
+`;
