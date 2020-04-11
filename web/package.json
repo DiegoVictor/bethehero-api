@@ -42,7 +42,9 @@
       "!src/routes/*",
       "!src/contexts/*",
       "!src/config/*",
-      "!src/components/Layout/*"
+      "!src/components/Button/*",
+      "!src/components/Layout/*",
+      "!src/components/Link/*"
     ]
   },
   "eslintConfig": {
