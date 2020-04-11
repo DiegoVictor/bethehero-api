@@ -47,15 +47,7 @@ export default () => {
           uf: state,
         });
 
-        toast.success(
-          `ONG cadastrada com sucesso, ID: ${data.id}. Clique para copiar!`,
-          {
-            closeOnClick: false,
-            onClick: () => {
-              navigator.clipboard.writeText(data.id);
-            },
-          }
-        );
+        toast.success(`ONG cadastrada com sucesso, ID: ${data.id}`);
 
         history.push('/');
       } catch (err) {
