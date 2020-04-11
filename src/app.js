@@ -15,7 +15,7 @@ const App = Express();
 App.use(helmet());
 App.use(
   cors({
-    exposedHeaders: ['X-Total-Count'],
+    exposedHeaders: ['X-Total-Count', 'Link'],
   })
 );
 App.use(Express.json());
