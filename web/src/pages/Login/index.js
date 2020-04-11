@@ -26,11 +26,17 @@ export default () => {
 
         await schema.validate({ id }, { abortEarly: false });
 
-        const { data } = await api.post('sessions', { id });
-        localStorage.setItem('bethehero_ngo', JSON.stringify(data));
+        const {
+          data: { ngo, token },
+        } = await api.post('sessions', { id });
 
-        setAuthorization(data.token);
-        setNgo({ name: data.ngo.name, token: data.token });
+        localStorage.setItem(
+          'bethehero',
+          JSON.stringify({ name: ngo.name, token })
+        );
+
+        setAuthorization(token);
+        setNgo({ name: ngo.name, token });
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
           const validation_errors = {};
