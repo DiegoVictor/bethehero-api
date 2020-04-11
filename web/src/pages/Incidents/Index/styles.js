@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  margin: 32px auto;
+  margin: auto;
   max-width: 1180px;
-  padding: 0px 30px;
+  padding: 32px 30px;
   width: 100%;
 
   h1 {
