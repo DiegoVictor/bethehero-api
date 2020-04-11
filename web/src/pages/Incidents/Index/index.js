@@ -18,6 +18,9 @@ export default () => {
   } = useContext(NgoContext);
   const [incidents, setIncidents] = useState([]);
   const history = useHistory();
+  const [page, setPage] = useState(1);
+  const [reached_end, setReachedEnd] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleLogout = useCallback(() => {
     localStorage.removeItem('bethehero_ngo');
@@ -40,9 +43,29 @@ export default () => {
     [incidents]
   );
 
+  const scroll_ref = useInfiniteScroll({
+    loading,
+    hasNextPage: !reached_end,
+    onLoadMore: async () => {
+      setLoading(true);
+
+      setPage(page + 1);
+      const { data, headers } = await api.get('/ngo_incidents', {
+        params: { page: page + 1 },
+      });
+
+      setIncidents([...incidents, ...data]);
+      if (!headers || headers.link.search(/rel="last"/gi) === -1) {
+        setReachedEnd(true);
+      }
+
+      setLoading(false);
+    },
+  });
+
   useEffect(() => {
     (async () => {
-      const { data } = await api.get('/ngo_incidents');
+      const { data } = await api.get('/ngo_incidents', { params: { page: 1 } });
       setIncidents(data);
     })();
   }, []);
@@ -65,7 +88,7 @@ export default () => {
 
         <h1>Casos</h1>
 
-        <Incidents>
+        <Incidents ref={scroll_ref}>
           {incidents.map((incident) => (
             <li key={String(incident.id)}>
               <strong>Caso:</strong>
