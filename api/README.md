@@ -1,4 +1,4 @@
-# Be The Hero API
+# API Be The Hero
 [![airbnb-style](https://flat.badgen.net/badge/eslint/airbnb/ff5a5f?icon=airbnb)](https://github.com/airbnb/javascript)
 [![MIT License](https://img.shields.io/npm/l/@testing-library/jest-dom.svg?style=flat-square)](https://github.com/DiegoVictor/bethehero/blob/master/LICENSE)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)<br>
