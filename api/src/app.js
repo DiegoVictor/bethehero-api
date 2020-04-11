@@ -13,7 +13,11 @@ import RouteAliases from './app/middlewares/RouteAliases';
 const App = Express();
 
 App.use(helmet());
-App.use(cors());
+App.use(
+  cors({
+    exposedHeaders: ['X-Total-Count'],
+  })
+);
 App.use(Express.json());
 App.use(RouteAliases);
 
