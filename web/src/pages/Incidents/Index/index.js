@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect, useCallback } from 'react';
 import { FiPower, FiTrash2 } from 'react-icons/fi';
 import { useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { useInfiniteScroll } from 'react-infinite-scroll-hook';
 
 import Logo from '~/assets/logo.svg';
 import Button from '~/components/Button';
