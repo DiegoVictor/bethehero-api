@@ -23,7 +23,7 @@ export default () => {
   const [loading, setLoading] = useState(false);
 
   const handleLogout = useCallback(() => {
-    localStorage.removeItem('bethehero_ngo');
+    localStorage.removeItem('bethehero');
     setNgo({});
     history.push('/');
   }, [history, setNgo]);
