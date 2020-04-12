@@ -92,6 +92,10 @@ To start up the app run:
 ```
 $ yarn start
 ```
+Or:
+```
+npm run start
+```
 
 ## Error Handling
 Instead of only throw a simple message and HTTP Status Code this API return friendly errors:
@@ -204,7 +208,12 @@ Request body:
 ```
 
 # Running the tests
+[Jest](https://jestjs.io/) was the choice to test the app, to run:
 ```
 $ yarn test
+```
+Or:
+```
+$ npm run test
 ```
 > You can see the coverage report inside `tests/coverage`
