@@ -1,26 +1,98 @@
-# About
-This web version permit to you register your NGO and its incidents.
-<img src="https://raw.githubusercontent.com/DiegoVictor/omnistack/master/11/web/screenshots/register.png" width="49%"/>
-<img src="https://raw.githubusercontent.com/DiegoVictor/omnistack/master/11/web/screenshots/logon.png" width="49%"/>
-<img src="https://raw.githubusercontent.com/DiegoVictor/omnistack/master/11/web/screenshots/incidents.png" width="49%"/>
-<img src="https://raw.githubusercontent.com/DiegoVictor/omnistack/master/11/web/screenshots/create.png" width="49%"/>
+# [Web] Be The Hero
+![coverage](https://img.shields.io/badge/coverage-100%25-brightgreen?style=flat-square&logo=jest)
+[![airbnb-style](https://flat.badgen.net/badge/eslint/airbnb/ff5a5f?icon=airbnb)](https://github.com/airbnb/javascript)
+[![MIT License](https://img.shields.io/badge/license-MIT-green?style=flat-square)](https://github.com/DiegoVictor/bethehero/blob/master/LICENSE)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)<br>
+This web version allow NGOs to register yourself and manage its incidents. All the resources used by this application comes from its [`API`](https://github.com/DiegoVictor/bethehero/tree/master/api).
 
-# Install
+## Table of Contents
+* [Screenshots](#screenshots)
+* [Installing](#installing)
+  * [Configuring](#configuring)
+    * [.env](#env)
+    * [API](#api)
+* [Usage](#usage)
+  * [Reactotron](#reactotron)
+  * [Register & Login](#register--login)
+  * [localStorage](#localstorage)
+* [Running the tests](#running-the-tests)
+  * [Coverage Report](#coverage-report)
+
+# Screenshots
+Click to expand.<br>
+<img src="https://raw.githubusercontent.com/DiegoVictor/bethehero/master/web/screenshots/register.png" width="49%"/>
+<img src="https://raw.githubusercontent.com/DiegoVictor/bethehero/master/web/screenshots/logon.png" width="49%"/>
+<img src="https://raw.githubusercontent.com/DiegoVictor/bethehero/master/web/screenshots/incidents.png" width="49%"/>
+<img src="https://raw.githubusercontent.com/DiegoVictor/bethehero/master/web/screenshots/create.png" width="49%"/>
+
+# Installing
+Easy peasy lemon squeezy:
 ```
 $ yarn
 ```
-> Was installed and configured the `eslint` and `prettier` to keep the code clean and patterned.
+Or:
+```
+$ npm install
+```
+> Was installed and configured the [`eslint`](https://eslint.org/) and [`prettier`](https://prettier.io/) to keep the code clean and patterned.
 
-## Reactotron
-This project is configured with [Reactotron](https://github.com/infinitered/reactotron), just open the Reactotron GUI before the app is up and running, after start the app Reactotron will identify new connections.
+## Configuring
+Configure your environment variables and remember to start the [API](https://github.com/DiegoVictor/bethehero/tree/master/api) before to start this app.
 
-# .env
-Rename the `.env.example` to `.env` then just update with yours settings.
+### .env
+In this file you may configure the API's url. Rename the `.env.example` in the root directory to `.env` then just update with your settings.
 
-# API
-Start the server in the [api](https://github.com/DiegoVictor/omnistack/tree/master/11/api) folder (see its README for more information). If any change in the api's port or host was made remember to update the .env too.
+key|description|default
+---|---|---
+REACT_APP_API_URL|API's url with version (v1)|`http://localhost:3333/v1`
 
-# Start up
+### API
+Start the [API](https://github.com/DiegoVictor/bethehero/tree/master/api) (see its README for more information). In case of any change in the API's `port` or `host` remember to update the [`.env`](#env) too.
+
+
+# Usage
+To start the app run:
 ```
 $ yarn start
 ```
+Or:
+```
+npm run start
+```
+
+## Reactotron
+The project comes configured with [Reactotron](https://github.com/infinitered/reactotron), after install just open it, then as soon as possible Reactotron will automatically identify new connections.
+> Maybe be necessary refresh the page.
+
+## Register & Login
+When registering a new NGO notice that after send the form data a success toast message will appers at the right top corner of the screen with the NGO's ID, memorize or note it. At login page just paste the ID in the input and press `ENTER` or click on the button below to login.
+
+## localStorage
+The project saves NGO's data into a [localStorage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage) key: `bethehero`. Before use this data you need parse the data to a JavaScript object with [`JSON.parse`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse) function. Below you can see fictitious data:
+```json
+{
+  "name": "NGO Doe",
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibWVzc2FnZSI6IkVhZSwgdHVkbyBibHo_IiwiaWF0IjoxNTE2MjM5MDIyfQ.MgLoxvRXoXeEHv36H4KuUQ3kfVl66uSOzJYll2IsZHE"
+}
+```
+
+# Running the tests
+[Jest](https://jestjs.io) was the choice to test the app, to run:
+```
+$ yarn test
+```
+Or:
+```
+$ npm run test
+```
+
+## Coverage Report
+To generate/update the coverage report:
+```
+$ yarn coverage
+```
+Or:
+```
+$ npm run coverage
+```
+> You can see the coverage report inside `tests/coverage`.
