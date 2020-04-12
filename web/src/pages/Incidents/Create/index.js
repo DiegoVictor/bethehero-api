@@ -61,7 +61,7 @@ export default () => {
               Descreva o caso detalhadamente para encontrar um héroi para
               resolver isso.
             </p>
-            <Link to="/incidents">
+            <Link data-testid="back" to="/incidents">
               <FiArrowLeft size={20} color="#E02041" />
               Voltar
             </Link>
@@ -78,7 +78,9 @@ export default () => {
               placeholder="Valor em reais"
             />
 
-            <Button type="submit">Cadastrar</Button>
+            <Button data-testid="submit" type="submit">
+              Cadastrar
+            </Button>
           </Form>
         </div>
       </Container>

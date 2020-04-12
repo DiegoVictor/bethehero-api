@@ -76,7 +76,7 @@ export default () => {
               Faça seu cadastro, entre na plataforma e ajude pessoas a
               encontrarem os casos da sua ONG.
             </p>
-            <Link to="/">
+            <Link data-testid="login" to="/">
               <FiArrowLeft size={20} color="#E02041" />
               Já tenho cadastro
             </Link>
@@ -92,7 +92,9 @@ export default () => {
               <Input name="state" placeholder="UF" style={{ width: 90 }} />
             </div>
 
-            <Button type="submit">Cadastrar</Button>
+            <Button data-testid="submit" type="submit">
+              Cadastrar
+            </Button>
           </Form>
         </div>
       </Container>

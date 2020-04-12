@@ -61,9 +61,11 @@ export default () => {
             <h1>Faça seu logon</h1>
 
             <Input name="id" placeholder="Seu ID" />
-            <Button type="submit">Entrar</Button>
+            <Button data-testid="submit" type="submit">
+              Entrar
+            </Button>
 
-            <Link to="/register">
+            <Link data-testid="register" to="/register">
               <FiPlusSquare size={20} color="#E02041" />
               Não tenho cadastro
             </Link>

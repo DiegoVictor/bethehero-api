@@ -82,7 +82,7 @@ export default () => {
             <Button type="button">Novo caso</Button>
           </Link>
 
-          <button type="button" onClick={handleLogout}>
+          <button data-testid="logout" type="button" onClick={handleLogout}>
             <FiPower size={20} color="#E02041" />
           </button>
         </Header>
@@ -98,7 +98,7 @@ export default () => {
               <p>{incident.description}</p>
 
               <strong>Valor:</strong>
-              <p>
+              <p data-testid={`incident_${incident.id}_value`}>
                 {Intl.NumberFormat('pt-BR', {
                   style: 'currency',
                   currency: 'BRL',
@@ -106,6 +106,7 @@ export default () => {
               </p>
 
               <button
+                data-testid={`incident_${incident.id}_delete`}
                 type="button"
                 onClick={() => handleDeleteIncident(incident.id)}
               >
