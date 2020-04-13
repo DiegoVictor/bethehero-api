@@ -41,7 +41,6 @@ describe('Login', () => {
       JSON.stringify({ name, token })
     );
     expect(setNgo).toHaveBeenCalledWith({ name, token });
-    expect(api.defaults.headers.common.Authorization).toBe(`Bearer ${token}`);
   });
 
   it('should not be able to login', async () => {

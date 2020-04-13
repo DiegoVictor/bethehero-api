@@ -10,7 +10,7 @@ import Input from '~/components/Input';
 import Layout from '~/components/Layout';
 import Link from '~/components/Link';
 import NgoContext from '~/contexts/Ngo';
-import api, { setAuthorization } from '~/services/api';
+import api from '~/services/api';
 import { Container, Form } from './styles';
 
 export default () => {
@@ -35,7 +35,6 @@ export default () => {
           JSON.stringify({ name: ngo.name, token })
         );
 
-        setAuthorization(token);
         setNgo({ name: ngo.name, token });
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
