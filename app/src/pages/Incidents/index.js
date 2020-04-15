@@ -26,34 +26,39 @@ export default () => {
   const [total, setTotal] = useState(0);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
-
-  const goToDetail = useCallback(
-    (incident) => {
-      navigation.navigate('Detail', { incident });
-    },
-    [navigation]
-  );
+  const [has_more, setHasMore] = useState(true);
 
   const getPage = useCallback(async () => {
-    if (loading || (total > 0 && total === incidents.length)) {
-      return;
-    }
-
     setLoading(true);
-
     const { headers, data } = await api.get('incidents', {
       params: { page },
     });
     setIncidents([...incidents, ...data]);
-    setTotal(headers['x-total-count']);
 
-    setPage(page + 1);
+    if (headers['x-total-count'] !== total) {
+    setTotal(headers['x-total-count']);
+    }
+
     setLoading(false);
-  }, [loading, total, incidents]);
+
+    if (
+      typeof headers.link !== 'string' ||
+      headers.link.search(/rel="last"/gi) === -1
+    ) {
+      setHasMore(false);
+    }
+  }, [incidents, page, total]);
+
+  const getNextPage = useCallback(() => {
+    if (!loading && has_more) {
+    setPage(page + 1);
+    }
+  }, [loading, has_more, page, setPage]);
 
   useEffect(() => {
     getPage();
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [page]);
 
   return (
     <Container>
@@ -70,12 +75,12 @@ export default () => {
         data={incidents}
         keyExtractor={(incident) => String(incident.id)}
         showsVerticalScrollIndicator={false}
-        onEndReached={getPage}
+        onEndReached={getNextPage}
         onEndReachedThreshold={0.2}
         renderItem={({ item: incident }) => (
           <Incident>
             <Label>ONG</Label>
-            <Value>{incident.name}</Value>
+            <Value>{incident.ngo.name}</Value>
 
             <Label>CASO</Label>
             <Value>{incident.title}</Value>
