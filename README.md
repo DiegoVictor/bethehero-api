@@ -27,6 +27,7 @@ Responsible for provide data to the [`web`](https://github.com/DiegoVictor/bethe
   * [Routes](#routes)
     * [Requests](#requests)
 * [Running the tests](#running-the-tests)
+  * [Coverage report](#coverage-report)
 
 # Installing
 Easy peasy lemon squeezy:
@@ -217,4 +218,6 @@ Or:
 ```
 $ npm run test
 ```
-> You can see the coverage report inside `tests/coverage`
+
+## Coverage report
+You can see the coverage report inside `tests/coverage`. They are automatically created after the tests run.
