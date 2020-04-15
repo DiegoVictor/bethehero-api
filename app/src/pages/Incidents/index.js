@@ -21,7 +21,7 @@ import {
 } from './styles';
 
 export default () => {
-  const navigation = useNavigation();
+  const { navigate } = useNavigation();
   const [incidents, setIncidents] = useState([]);
   const [total, setTotal] = useState(0);
   const [page, setPage] = useState(1);
@@ -95,7 +95,7 @@ export default () => {
 
             <Button
               onPress={() => {
-                goToDetail(incident);
+                navigate('Detail', { incident });
               }}
             >
               <ButtonText>Ver mais detalhes</ButtonText>
