@@ -4,6 +4,7 @@ import { Feather } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 
 import Logo from '~/assets/logo.png';
+import api from '~/services/api';
 import {
   Button,
   ButtonText,
@@ -18,7 +19,6 @@ import {
   Title,
   Value,
 } from './styles';
-import api from '~/services/api';
 
 export default () => {
   const navigation = useNavigation();

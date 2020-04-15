@@ -2,8 +2,8 @@ import React, { useCallback, useMemo } from 'react';
 import { Image, Linking, ScrollView } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import * as MailComposer from 'expo-mail-composer';
-
 import { useNavigation, useRoute } from '@react-navigation/native';
+
 import Logo from '~/assets/logo.png';
 import {
   Action,
