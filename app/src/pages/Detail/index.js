@@ -22,8 +22,10 @@ import {
 
 export default () => {
   const navigation = useNavigation();
-  const route = useRoute();
-  const { incident } = route.params;
+  const { params } = useRoute();
+
+  const { incident } = useMemo(() => params, [params]);
+
   const formated_value = useMemo(() => {
     return Intl.NumberFormat('pt-BR', {
       style: 'currency',
@@ -31,21 +33,25 @@ export default () => {
     }).format(incident.value);
   }, [incident]);
 
-  const message = `Olá ${incident.name}, estou entrando em contato pois gostaria de ajudar no caso "${incident.title}" com o valor de ${formated_value}`;
+  const message = useMemo(
+    () =>
+      `Olá ${incident.ngo.name}, estou entrando em contato pois gostaria de ajudar no caso "${incident.title}" com o valor de ${formated_value}`,
+    [incident, formated_value]
+  );
 
   const sendMail = useCallback(() => {
     MailComposer.composeAsync({
       subject: `Herói do caso: ${incident.title}`,
-      recipients: [incident.email],
+      recipients: [incident.ngo.email],
       body: message,
     });
-  });
+  }, [incident, message]);
 
   const sendWhatsApp = useCallback(() => {
     Linking.openURL(
-      `whatsapp://send?phone:${incident.whatsapp}&text=${message}`
+      `whatsapp://send?phone:${incident.ngo.whatsapp}&text=${message}`
     );
-  });
+  }, [incident, message]);
 
   return (
     <Container>
@@ -60,7 +66,7 @@ export default () => {
         <Incident>
           <Label>ONG</Label>
           <Value>
-            {incident.name} de {incident.city}/{incident.uf}
+            {incident.ngo.name} de {incident.ngo.city}/{incident.ngo.uf}
           </Value>
 
           <Label>CASO</Label>
