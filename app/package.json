@@ -7,7 +7,22 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
+    "test": "jest",
     "eject": "expo eject"
+  },
+  "jest": {
+    "preset": "jest-expo",
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "src/pages/**/*.js"
+    ],
+    "coverageDirectory": "tests/coverage",
+    "moduleNameMapper": {
+      "^~/(.*)": "<rootDir>/src/$1"
+    },
+    "testMatch": [
+      "**/tests/**/*.spec.js"
+    ]
   },
   "dependencies": {
     "@react-native-community/masked-view": "0.1.5",
@@ -30,6 +45,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",
+    "@types/jest": "^25.2.1",
     "babel-eslint": "^10.1.0",
     "babel-plugin-root-import": "^6.5.0",
     "babel-preset-expo": "^8.1.0",
@@ -42,7 +58,10 @@
     "eslint-plugin-prettier": "^3.1.2",
     "eslint-plugin-react": "^7.19.0",
     "eslint-plugin-react-hooks": "^2.5.1",
+    "jest": "^25.3.0",
+    "jest-expo": "^37.0.0",
     "prettier": "^2.0.2",
+    "react-native-testing-library": "^1.13.0",
     "reactotron-react-native": "^5.0.0"
   }
 }

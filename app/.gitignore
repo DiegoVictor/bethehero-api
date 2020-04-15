@@ -14,3 +14,4 @@ web-report/
 .DS_Store
 
 app.json
+tests/coverage

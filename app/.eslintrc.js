@@ -1,6 +1,7 @@
 module.exports = {
   env: {
     es6: true,
+    jest: true,
   },
   extends: ['plugin:react/recommended', 'airbnb', 'prettier', 'prettier/react'],
   globals: {
@@ -21,6 +22,8 @@ module.exports = {
     'prettier/prettier': 'error',
     'react/jsx-filename-extension': ['error', { extensions: ['.js', '.jsx'] }],
     'import/prefer-default-export': 'off',
+    'react-hooks/rules-of-hooks': 'error',
+    'react-hooks/exhaustive-deps': 'warn',
     camelcase: 'off',
   },
   settings: {
