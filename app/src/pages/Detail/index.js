@@ -57,7 +57,7 @@ export default () => {
     <Container>
       <Header>
         <Image source={Logo} />
-        <Back onPress={navigation.goBack}>
+        <Back testID="back" onPress={navigation.goBack}>
           <Feather name="arrow-left" size={28} color="#E82041" />
         </Back>
       </Header>
@@ -82,10 +82,10 @@ export default () => {
 
           <Description>Entre em contato:</Description>
           <Actions>
-            <Action onPress={sendWhatsApp}>
+            <Action testID="whatsapp" onPress={sendWhatsApp}>
               <ActionText>WhatsApp</ActionText>
             </Action>
-            <Action onPress={sendMail}>
+            <Action testID="email" onPress={sendMail}>
               <ActionText>Email</ActionText>
             </Action>
           </Actions>

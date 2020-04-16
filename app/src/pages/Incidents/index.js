@@ -36,7 +36,7 @@ export default () => {
     setIncidents([...incidents, ...data]);
 
     if (headers['x-total-count'] !== total) {
-    setTotal(headers['x-total-count']);
+      setTotal(headers['x-total-count']);
     }
 
     setLoading(false);
@@ -51,7 +51,7 @@ export default () => {
 
   const getNextPage = useCallback(() => {
     if (!loading && has_more) {
-    setPage(page + 1);
+      setPage(page + 1);
     }
   }, [loading, has_more, page, setPage]);
 
@@ -72,6 +72,7 @@ export default () => {
       <Description>Escolha um dos casos abaixo e salve o dia.</Description>
 
       <Incidents
+        testID="incidents"
         data={incidents}
         keyExtractor={(incident) => String(incident.id)}
         showsVerticalScrollIndicator={false}
@@ -94,6 +95,7 @@ export default () => {
             </Value>
 
             <Button
+              testID={`incident_${incident.id}_detail`}
               onPress={() => {
                 navigate('Detail', { incident });
               }}
