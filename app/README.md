@@ -1,5 +1,5 @@
 # [App] Be The Hero
-![react-native](https://img.shields.io/badge/reactjs-16.9.0-61dafb?style=flat-square&logo=react)
+![react-native](https://img.shields.io/badge/react-16.9.0-61dafb?style=flat-square&logo=react)
 ![styled-components](https://img.shields.io/badge/styled_components-5.1.0-db7b86?style=flat-square&logo=styled-components)
 ![eslint](https://img.shields.io/badge/eslint-6.8.0-4b32c3?style=flat-square&logo=eslint)
 [![airbnb-style](https://flat.badgen.net/badge/style-guide/airbnb/ff5a5f?icon=airbnb)](https://github.com/airbnb/javascript)
