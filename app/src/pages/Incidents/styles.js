@@ -3,7 +3,7 @@ import Constants from 'expo-constants';
 
 export const Container = styled.View`
   flex: 1;
-  padding: ${Constants.statusBarHeight + 20}px 24px;
+  padding: ${Constants.statusBarHeight + 20}px 24px 0px;
 `;
 
 export const Header = styled.View`
