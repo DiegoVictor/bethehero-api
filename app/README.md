@@ -1,10 +1,10 @@
 # [App] Be The Hero
-![react-native](https://img.shields.io/badge/react-16.9.0-61dafb?style=flat-square&logo=react)
-![styled-components](https://img.shields.io/badge/styled_components-5.1.0-db7b86?style=flat-square&logo=styled-components)
-![eslint](https://img.shields.io/badge/eslint-6.8.0-4b32c3?style=flat-square&logo=eslint)
+[![react-native](https://img.shields.io/badge/react-16.9.0-61dafb?style=flat-square&logo=react)](https://reactnative.dev/)
+[![styled-components](https://img.shields.io/badge/styled_components-5.1.0-db7b86?style=flat-square&logo=styled-components)](https://styled-components.com/)
+[![eslint](https://img.shields.io/badge/eslint-6.8.0-4b32c3?style=flat-square&logo=eslint)](https://eslint.org/)
 [![airbnb-style](https://flat.badgen.net/badge/style-guide/airbnb/ff5a5f?icon=airbnb)](https://github.com/airbnb/javascript)
-![jest](https://img.shields.io/badge/jest-24.9.0-brightgreen?style=flat-square&logo=jest)
-![expo](https://img.shields.io/badge/expo-37.0.0-000000?style=flat-square&logo=expo)
+[![jest](https://img.shields.io/badge/jest-24.9.0-brightgreen?style=flat-square&logo=jest)](https://jestjs.io/)
+[![expo](https://img.shields.io/badge/expo-37.0.0-000000?style=flat-square&logo=expo)](https://expo.io/)
 ![coverage](https://img.shields.io/badge/coverage-100%25-brightgreen?style=flat-square)
 [![MIT License](https://img.shields.io/badge/license-MIT-green?style=flat-square)](https://github.com/DiegoVictor/bethehero/blob/master/LICENSE)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)<br>
