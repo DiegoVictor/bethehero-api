@@ -1,8 +1,8 @@
-class PaginationLinks {
-  run({ resource_url, page, pages_total }) {
-    const url = `${resource_url}?page=`;
+export default (page, pages_total, resource_url) => {
+  const url = `${resource_url}?page=`;
+  const links = {};
 
-    const links = {};
+  if (pages_total > 1) {
     if (page < pages_total) {
       links.last = url + pages_total;
       links.next = url + (page + 1);
@@ -12,9 +12,7 @@ class PaginationLinks {
       links.first = `${url}1`;
       links.prev = url + (page - 1);
     }
-
-    return links;
   }
-}
 
-export default new PaginationLinks();
+  return links;
+};
