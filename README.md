@@ -26,7 +26,7 @@ Responsible for provide data to the [`web`](https://github.com/DiegoVictor/bethe
   * [Pagination](#pagination)
     * [Link Header](#link-header)
     * [X-Total-Count](#x-total-count)
-  * [JWT](#jwt)
+  * [Bearer Token](#bearer-token)
   * [Versioning](#versioning)
   * [Routes](#routes)
     * [Requests](#requests)
@@ -66,7 +66,7 @@ $ npx knex migrate:latest
 > See more information on [Knex Migrations](http://knexjs.org/#Migrations).
 
 ### .env
-In this file you may configure your Redis database connection, JWT settings, the environment, app's port and a url to documentation (this will be returned with error responses, see [error section](#errors-reference)). Rename the `.env.example` in the root directory to `.env` then just update with your settings.
+In this file you may configure your Redis database connection, JWT settings, the environment, app's port and a url to documentation (this will be returned with error responses, see [error section](#error-handling)). Rename the `.env.example` in the root directory to `.env` then just update with your settings.
 
 |key|description|default
 |---|---|---
@@ -76,7 +76,7 @@ In this file you may configure your Redis database connection, JWT settings, the
 |JWT_EXPIRATION_TIME|How long time will be the token valid. See [jsonwebtoken](https://github.com/auth0/node-jsonwebtoken#usage) repo for more information.|`7d`
 |REDIS_HOST|Redis host. For Windows users using Docker Toolbox maybe be necessary in your `.env` file set the host to `192.168.99.100` (docker machine IP) instead of localhost or `127.0.0.1`.|`127.0.0.1`
 |REDIS_PORT|Redis port.|`6379`
-|DOCS_URL|An url to docs where users can find more information about the app's internal code errors.|`https://github.com/DiegoVictor/bethehero/blob/master/api/README.md#errors-reference`
+|DOCS_URL|An url to docs where users can find more information about the app's internal code errors.|`https://github.com/DiegoVictor/bethehero/tree/master/api#errors-reference`
 
 ### Rate Limit & Brute Force (Optional)
 The project comes pre-configured, but you can adjust it as your needs.
@@ -111,7 +111,7 @@ Instead of only throw a simple message and HTTP Status Code this API return frie
   "error": "Too Many Requests",
   "message": "Too Many Requests",
   "code": 449,
-  "docs": "https://github.com/DiegoVictor/omnistack/tree/master/11/api#errors"
+  "docs": "https://github.com/DiegoVictor/bethehero/tree/master/api#errors-reference"
 }
 ```
 > Errors are implemented with [@hapi/boom](https://github.com/hapijs/boom).
@@ -145,18 +145,18 @@ Also in the headers of every route with pagination the `Link` header is returned
 <http://localhost:3333/v1/incidents?page=1>; rel="first",
 <http://localhost:3333/v1/incidents?page=2>; rel="prev"
 ```
-> See more about this header in this MDN web doc: [Link - HTTP](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Link).
+> See more about this header in this MDN doc: [Link - HTTP](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Link).
 
 ### X-Total-Count
 Another header returned in routes with pagination, this bring the total records amount.
 
-## JWT
-A few routes expect a Bearer JWT Token in an `Authorization` header.
+## Bearer Token
+A few routes expect a Bearer Token in an `Authorization` header.
 > You can see these routes in the [routes](#routes) section.
 ```
-GET http://localhost:3333/v1/ngo_incidents?page=1 Authorization: Bearer <token>
+GET http://localhost:3333/v1/ngos/e5a76988/incidents?page=1 Authorization: Bearer <token>
 ```
-> To achieve this token you just need authenticate through the `/sessions` route and it will return the `token` key with a valid JWT Token.
+> To achieve this token you just need authenticate through the `/sessions` route and it will return the `token` key with a valid Bearer Token.
 
 ## Versioning
 A simple versioning was made. Just remember to set after the `host` the `/v1/` string to your requests.
@@ -165,19 +165,19 @@ GET http://localhost:3333/v1/ngos
 ```
 
 ## Routes
-|route|HTTP Method|pagination|params|validation|JWT
+|route|HTTP Method|pagination|params|description|auth method
 |:---|:---:|:---:|:---:|:---:|:---:
-|`/sessions`|POST|:x:|Body with NGO `id`|:heavy_check_mark:|:x:
-|`/ngos`|GET|:heavy_check_mark:|`page` query parameter|:heavy_check_mark:|:x:
-|`/ngos/:id`|GET|:x:|`:id` of the NGO|:heavy_check_mark:|:x:
-|`/ngos`|POST|:x:|Body with new NGO data|:heavy_check_mark:|:x:
-|`/incidents`|GET|:heavy_check_mark:|`page` query parameter|:heavy_check_mark:|:x:
-|`/incidents/:id`|GET|:x:|`:id` of the incident|:heavy_check_mark:|:x:
-|`/incidents`|POST|:x:|Body with new incident data|:heavy_check_mark:|:heavy_check_mark:
-|`/incidents/:id`|DELETE|:x:|`:id` of the incident|:heavy_check_mark:|:heavy_check_mark:
-|`/ngo_incidents`|GET|:x:|:x:|:heavy_check_mark:|:heavy_check_mark:
+|`/sessions`|POST|:x:|Body with NGO `id`.|Authenticates user, return a Bearer Token and ngo's id and name.|:x:
+|`/ngos`|GET|:heavy_check_mark:|`page` query parameter.|Lists NGOs.|:x:
+|`/ngos/:id`|GET|:x:|`:id` of the NGO.|Return one NGO.|:x:
+|`/ngos`|POST|:x:|Body with new NGO data.|Create a new NGO.|:x:
+|`/incidents`|GET|:heavy_check_mark:|`page` query parameter.|List incidents.|:x:
+|`/incidents/:id`|GET|:x:|`:id` of the incident.|Return one incident.|:x:
+|`/incidents`|POST|:x:|Body with new incident data.|Create new incidents.|Bearer
+|`/incidents/:id`|DELETE|:x:|`:id` of the incident.|Remove an incident.|Bearer
+|`/ngos/:ngo_id/incidents`|GET|:heavy_check_mark:|`page` query parameter and `:ngo_id` of the NGO.|List NGO's incidents.|:x:
 
-> Routes with `JWT` checked expect an `Authorization` header. See [JWT](#jwt) section for more information.
+> Routes with `Bearer` as auth method expect an `Authorization` header. See [Bearer Token](#bearer-token) section for more information.
 
 ### Requests
 * `POST /session`
