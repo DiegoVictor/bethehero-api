@@ -75,6 +75,7 @@ When registering a new NGO notice that after send the form data a success toast 
 The project saves NGO's data into a [localStorage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage) key: `bethehero`. Before use this data you need parse the data to a JavaScript object with [`JSON.parse`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse) function. Below you can see fictitious data:
 ```json
 {
+  "id": "98a111d1",
   "name": "NGO Doe",
   "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibWVzc2FnZSI6IkVhZSwgdHVkbyBibHo_IiwiaWF0IjoxNTE2MjM5MDIyfQ.MgLoxvRXoXeEHv36H4KuUQ3kfVl66uSOzJYll2IsZHE"
 }
