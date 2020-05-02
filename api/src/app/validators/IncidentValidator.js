@@ -6,7 +6,4 @@ export default celebrate({
     description: Joi.string().min(10).required(),
     value: Joi.number().required(),
   }),
-  [Segments.HEADERS]: Joi.object({
-    authorization: Joi.string().required(),
-  }).unknown(),
 });

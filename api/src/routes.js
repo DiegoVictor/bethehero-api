@@ -5,15 +5,12 @@ import IncidentController from './app/controllers/IncidentController';
 import NgoIncidentController from './app/controllers/NgoIncidentController';
 import SessionController from './app/controllers/SessionController';
 
-import IncidentGet from './app/validators/Incidents/Get';
-import IncidentShow from './app/validators/Incidents/Show';
-import IncidentDelete from './app/validators/Incidents/Delete';
-import IncidentStore from './app/validators/Incidents/Store';
-import NgoGet from './app/validators/Ngos/Get';
-import NgoShow from './app/validators/Ngos/Show';
-import NgoStore from './app/validators/Ngos/Store';
-import NgoIncidentsGet from './app/validators/NgoIncidents/Get';
-import SessionStore from './app/validators/Sessions/Store';
+import IncidentValidator from './app/validators/IncidentValidator';
+import NgoValidator from './app/validators/NgoValidator';
+import SessionValidator from './app/validators/SessionValidator';
+import IdValidator from './app/validators/IdValidator';
+import PageValidator from './app/validators/PageValidator';
+import NgoIdValidator from './app/validators/NgoIdValidator';
 
 import BearerAuth from './app/middlewares/BearerAuth';
 import RateLimit from './app/middlewares/RateLimit';
@@ -23,24 +20,21 @@ const Route = Router();
 
 Route.post(
   '/sessions',
-  BruteForce.prevent,
-  SessionStore,
+  SessionValidator,
   SessionController.store
 );
 
 Route.use(RateLimit);
 
-Route.get('/ngos', NgoGet, NgoController.index);
-Route.get('/ngos/:id', NgoShow, NgoController.show);
-Route.post('/ngos', NgoStore, NgoController.store);
+Route.get('/ngos', PageValidator, NgoController.index);
+Route.get('/ngos/:id', IdValidator, NgoController.show);
 
-Route.get('/incidents', IncidentGet, IncidentController.index);
-Route.get('/incidents/:id', IncidentShow, IncidentController.show);
-
-Route.use(AuthToken);
+Route.get('/incidents', PageValidator, IncidentController.index);
+Route.get('/incidents/:id', IdValidator, IncidentController.show);
 
 Route.use(BearerAuth);
 
-Route.get('/ngo_incidents', NgoIncidentsGet, NgoIncidentController.index);
+Route.post('/incidents', IncidentValidator, IncidentController.store);
+Route.delete('/incidents/:id', IdValidator, IncidentController.destroy);
 
 export default Route;
