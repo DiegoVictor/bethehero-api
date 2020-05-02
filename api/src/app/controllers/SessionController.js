@@ -6,7 +6,10 @@ import connection from '../../database/connection';
 class SessionController {
   async store(req, res) {
     const { id } = req.body;
-    const ngo = await connection('ngos').where('id', id).select('name').first();
+    const ngo = await connection('ngos')
+      .where('id', id)
+      .select('id', 'name')
+      .first();
 
     if (!ngo) {
       throw badRequest('Your NGO was not found', { code: 240 });
