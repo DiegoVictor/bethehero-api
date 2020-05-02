@@ -15,7 +15,7 @@ import NgoStore from './app/validators/Ngos/Store';
 import NgoIncidentsGet from './app/validators/NgoIncidents/Get';
 import SessionStore from './app/validators/Sessions/Store';
 
-import AuthToken from './app/middlewares/AuthToken';
+import BearerAuth from './app/middlewares/BearerAuth';
 import RateLimit from './app/middlewares/RateLimit';
 import BruteForce from './app/middlewares/BruteForce';
 
@@ -39,8 +39,7 @@ Route.get('/incidents/:id', IncidentShow, IncidentController.show);
 
 Route.use(AuthToken);
 
-Route.post('/incidents', IncidentStore, IncidentController.store);
-Route.delete('/incidents/:id', IncidentDelete, IncidentController.destroy);
+Route.use(BearerAuth);
 
 Route.get('/ngo_incidents', NgoIncidentsGet, NgoIncidentController.index);
 
