@@ -14,12 +14,15 @@ import NgoIdValidator from './app/validators/NgoIdValidator';
 
 import BearerAuth from './app/middlewares/BearerAuth';
 import RateLimit from './app/middlewares/RateLimit';
-import BruteForce from './app/middlewares/BruteForce';
+
+import { BruteForce } from './database/redis';
+import bruteforce_config from './config/bruteforce';
 
 const Route = Router();
 
 Route.post(
   '/sessions',
+  new BruteForce(bruteforce_config).prevent,
   SessionValidator,
   SessionController.store
 );

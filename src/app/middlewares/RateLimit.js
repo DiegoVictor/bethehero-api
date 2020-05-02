@@ -1,6 +1,6 @@
 import { tooManyRequests } from '@hapi/boom';
 
-import RateLimiter from '../../lib/RateLimiter';
+import { RateLimiter } from '../../database/redis';
 import config from '../../config/rate_limit';
 
 const rate_limiter = new RateLimiter(config);
