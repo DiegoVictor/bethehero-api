@@ -31,6 +31,13 @@ Route.use(RateLimit);
 
 Route.get('/ngos', PageValidator, NgoController.index);
 Route.get('/ngos/:id', IdValidator, NgoController.show);
+Route.get(
+  '/ngos/:ngo_id/incidents',
+  NgoIdValidator,
+  PageValidator,
+  NgoIncidentController.index
+);
+Route.post('/ngos', NgoValidator, NgoController.store);
 
 Route.get('/incidents', PageValidator, IncidentController.index);
 Route.get('/incidents/:id', IdValidator, IncidentController.show);
