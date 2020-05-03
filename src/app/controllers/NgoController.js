@@ -2,7 +2,7 @@ import { notFound } from '@hapi/boom';
 
 import connection from '../../database/connection';
 import generateUniqueId from '../../utils/generateUniqueId';
-import PaginationLinks from '../services/PaginationLinks';
+import paginationLinks from '../helpers/paginationLinks';
 
 class NgoController {
   async index(req, res) {
@@ -23,13 +23,9 @@ class NgoController {
     const [count] = await connection('ngos').count();
     res.header('X-Total-Count', count['count(*)']);
 
-    const links = PaginationLinks.run({
-      resource_url,
-      page,
-      pages_total: Math.ceil(count['count(*)'] / limit),
-    });
-    if (Object.keys(links).length > 0) {
-      res.links(links);
+    const pages_total = Math.ceil(count['count(*)'] / limit);
+    if (pages_total > 1) {
+      res.links(paginationLinks(page, pages_total, resource_url));
     }
 
     return res.json(ngos);
