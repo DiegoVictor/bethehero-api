@@ -1,6 +1,5 @@
 import request from 'supertest';
 import faker from 'faker';
-import { notFound, unauthorized } from '@hapi/boom';
 
 import app from '../../../src/app';
 import connection from '../../../src/database/connection';
@@ -119,9 +118,11 @@ describe('Incident', () => {
       .send();
 
     expect(response.body).toStrictEqual({
-      ...notFound('Incident not found').output.payload,
-      docs: process.env.DOCS_URL,
+      statusCode: 404,
+      error: 'Not Found',
+      message: 'Incident not found',
       code: 144,
+      docs: process.env.DOCS_URL,
     });
   });
 
@@ -156,9 +157,11 @@ describe('Incident', () => {
       .send();
 
     expect(response.body).toStrictEqual({
-      ...notFound('Incident not found').output.payload,
-      docs: process.env.DOCS_URL,
+      statusCode: 404,
+      error: 'Not Found',
+      message: 'Incident not found',
       code: 144,
+      docs: process.env.DOCS_URL,
     });
   });
 
@@ -174,7 +177,9 @@ describe('Incident', () => {
 
     const message = 'This incident is not owned by your NGO';
     expect(response.body).toStrictEqual({
-      ...unauthorized(message).output.payload,
+      statusCode: 401,
+      error: 'Unauthorized',
+      message,
       attributes: {
         code: 141,
         error: message,

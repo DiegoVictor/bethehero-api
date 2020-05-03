@@ -1,6 +1,5 @@
 import request from 'supertest';
 import crypto from 'crypto';
-import { badRequest } from '@hapi/boom';
 
 import app from '../../../src/app';
 import connection from '../../../src/database/connection';
@@ -41,7 +40,9 @@ describe('Session', () => {
       .send({ id });
 
     expect(response.body).toStrictEqual({
-      ...badRequest('Your NGO was not found').output.payload,
+      statusCode: 400,
+      error: 'Bad Request',
+      message: 'Your NGO was not found',
       code: 240,
       docs: process.env.DOCS_URL,
     });
