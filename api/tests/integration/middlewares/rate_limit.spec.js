@@ -1,7 +1,3 @@
-import { tooManyRequests } from '@hapi/boom';
-
-import closeRedis from '../../utils/close_redis';
-import instance from '../../../src/database/redis';
 import RateLimit from '../../../src/app/middlewares/RateLimit';
 
 describe('RateLimit', () => {
@@ -10,10 +6,6 @@ describe('RateLimit', () => {
     json: jest.fn(),
   };
   const next = jest.fn();
-
-  afterAll(async () => {
-    await closeRedis(instance);
-  });
 
   it('should be able to consume the api', async () => {
     await RateLimit({}, res, next);
