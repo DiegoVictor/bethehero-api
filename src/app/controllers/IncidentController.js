@@ -2,6 +2,7 @@ import { notFound, unauthorized } from '@hapi/boom';
 
 import connection from '../../database/connection';
 import paginationLinks from '../helpers/paginationLinks';
+import hateoas from '../helpers/hateoas';
 
 class IncidentController {
   async index(req, res) {
@@ -9,36 +10,37 @@ class IncidentController {
     const { page = 1 } = req.query;
     const limit = 5;
 
-    let incidents = await connection('incidents')
+    const incidents = await connection('incidents')
       .join('ngos', 'ngos.id', '=', 'incidents.ngo_id')
       .limit(limit)
       .offset((page - 1) * limit)
-      .select([
-        'incidents.*',
-        'ngos.id as ngo_id',
-        'ngos.name',
-        'ngos.email',
-        'ngos.whatsapp',
-        'ngos.city',
-        'ngos.uf',
-      ]);
-
-    incidents = incidents.map((incident) => ({
-      id: incident.id,
-      title: incident.title,
-      description: incident.description,
-      value: incident.value,
-      url: `${resource_url}/${incident.id}`,
-      ngo: {
-        id: incident.ngo_id,
-        name: incident.name,
-        email: incident.email,
-        whatsapp: incident.whatsapp,
-        city: incident.city,
-        uf: incident.uf,
-        url: `${base_url}/v1/ngos/${incident.ngo_id}`,
-      },
-    }));
+      .select(['ngos.*', 'ngos.id as ngo_id', 'incidents.*'])
+      .then((data) => {
+        return data.map((incident) =>
+          hateoas(
+            {
+              id: incident.id,
+              title: incident.title,
+              description: incident.description,
+              value: incident.value,
+              ngo: {
+                id: incident.ngo_id,
+                name: incident.name,
+                email: incident.email,
+                whatsapp: incident.whatsapp,
+                city: incident.city,
+                uf: incident.uf,
+              },
+            },
+            {
+              url: `${resource_url}/:id`,
+              ngo: {
+                url: `${base_url}/v1/ngos/${incident.ngo_id}`,
+              },
+            }
+          )
+        );
+      });
 
     const [count] = await connection('incidents').count();
     res.header('X-Total-Count', count['count(*)']);
@@ -54,23 +56,36 @@ class IncidentController {
   async show(req, res) {
     const { base_url, resource_url } = req;
     const { id } = req.params;
-    const incident = await connection('incidents').where('id', id).first();
+    const incident = await connection('incidents')
+      .where('id', id)
+      .first()
+      .then((result) => {
+        if (result) {
+          return {
+            id,
+            title: result.title,
+            description: result.description,
+            value: result.value,
+            ngo: {
+              id: result.ngo_id,
+            },
+          };
+        }
+        return result;
+      });
 
     if (!incident) {
       throw notFound('Incident not found', { code: 144 });
     }
 
-    return res.json({
-      id: incident.id,
-      title: incident.title,
-      description: incident.description,
-      value: incident.value,
-      url: resource_url,
-      ngo: {
-        id: incident.ngo_id,
-        url: `${base_url}/v1/ngos/${incident.ngo_id}`,
-      },
-    });
+    return res.json(
+      hateoas(incident, {
+        url: resource_url,
+        ngo: {
+          url: `${base_url}/v1/ngos/${incident.ngo.id}`,
+        },
+      })
+    );
   }
 
   async store(req, res) {
