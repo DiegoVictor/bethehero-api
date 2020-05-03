@@ -3,10 +3,8 @@ import crypto from 'crypto';
 import { badRequest } from '@hapi/boom';
 
 import app from '../../../src/app';
-import closeRedis from '../../utils/close_redis';
 import connection from '../../../src/database/connection';
 import factory from '../../utils/factory';
-import instance from '../../../src/database/redis';
 
 describe('Session', () => {
   beforeEach(async () => {
@@ -16,7 +14,6 @@ describe('Session', () => {
 
   afterAll(async () => {
     await connection.destroy();
-    await closeRedis(instance);
   });
 
   it('should be able to logon', async () => {

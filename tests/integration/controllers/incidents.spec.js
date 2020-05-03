@@ -3,10 +3,8 @@ import faker from 'faker';
 import { notFound, unauthorized } from '@hapi/boom';
 
 import app from '../../../src/app';
-import closeRedis from '../../utils/close_redis';
 import connection from '../../../src/database/connection';
 import factory from '../../utils/factory';
-import instance from '../../../src/database/redis';
 import token from '../../utils/jwtoken';
 
 describe('Incident', () => {
@@ -26,7 +24,6 @@ describe('Incident', () => {
 
   afterAll(async () => {
     await connection.destroy();
-    await closeRedis(instance);
   });
 
   it('should be able to get a page of incidents', async () => {
