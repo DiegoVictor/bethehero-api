@@ -1,12 +1,9 @@
 import request from 'supertest';
 import crypto from 'crypto';
-import { notFound } from '@hapi/boom';
 
 import app from '../../../src/app';
-import closeRedis from '../../utils/close_redis';
 import connection from '../../../src/database/connection';
 import factory from '../../utils/factory';
-import instance from '../../../src/database/redis';
 
 describe('NGO', () => {
   const base_url = `http://127.0.0.1:${process.env.APP_PORT}/v1`;
@@ -18,7 +15,6 @@ describe('NGO', () => {
 
   afterAll(async () => {
     await connection.destroy();
-    await closeRedis(instance);
   });
 
   it('should be able to get a list of NGOs', async () => {
@@ -32,7 +28,7 @@ describe('NGO', () => {
       expect(response.body).toContainEqual({
         ...ngo,
         url: `${base_url}/ngos/${ngo.id}`,
-        incidents_url: `${base_url}/ngo_incidents`,
+        incidents_url: `${base_url}/ngos/${ngo.id}/incidents`,
       });
     });
   });
@@ -46,16 +42,21 @@ describe('NGO', () => {
     expect(response.body).toStrictEqual({
       ...ngo,
       url: `${base_url}/ngos/${ngo.id}`,
-      incidents_url: `${base_url}/ngo_incidents`,
+      incidents_url: `${base_url}/ngos/${ngo.id}/incidents`,
     });
   });
 
   it('should not be able to get an NGO that not exists', async () => {
     const id = crypto.randomBytes(4).toString('HEX');
-    const response = await request(app).get(`/v1/ngos/${id}`).send();
+    const response = await request(app)
+      .get(`/v1/ngos/${id}`)
+      .expect(404)
+      .send();
 
     expect(response.body).toStrictEqual({
-      ...notFound('NGO not found').output.payload,
+      statusCode: 404,
+      error: 'Not Found',
+      message: 'NGO not found',
       code: 244,
       docs: process.env.DOCS_URL,
     });
