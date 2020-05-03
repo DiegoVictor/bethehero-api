@@ -1,29 +1,30 @@
 import connection from '../../database/connection';
 import paginationLinks from '../helpers/paginationLinks';
+import hateoas from '../helpers/hateoas';
 
 class NgoIncidentController {
   async index(req, res) {
-    const { base_url, resource_url, ngo_id } = req;
+    const { base_url, resource_url } = req;
+    const { ngo_id } = req.params;
     const { page = 1 } = req.query;
     const limit = 5;
 
-    let incidents = await connection('incidents')
+    const incidents = await connection('incidents')
       .where('ngo_id', ngo_id)
       .limit(limit)
       .offset((page - 1) * limit)
-      .select('*');
-
-    incidents = incidents.map(({ id, title, description, value }) => ({
-      id,
-      title,
-      description,
-      value,
-      url: `${base_url}/v1/incidents/${id}`,
-      ngo: {
-        id: ngo_id,
-        url: `${base_url}/v1/ngos/${ngo_id}`,
-      },
-    }));
+      .select('*')
+      .then((data) => {
+        return data.map(({ id, title, description, value }) => ({
+          id,
+          title,
+          description,
+          value,
+          ngo: {
+            id: ngo_id,
+          },
+        }));
+      });
 
     const [count] = await connection('incidents')
       .where('ngo_id', ngo_id)
@@ -35,7 +36,12 @@ class NgoIncidentController {
       res.links(paginationLinks(page, pages_total, resource_url));
     }
 
-    return res.json(incidents);
+    return res.json(
+      hateoas(incidents, {
+        url: `${base_url}/v1/incidents/:id`,
+        ngo: { url: `${base_url}/v1/ngos/${ngo_id}` },
+      })
+    );
   }
 }
 
