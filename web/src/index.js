@@ -8,6 +8,7 @@ import Navigation from './routes';
 toast.configure({
   autoClose: false,
   transition: Flip,
+  closeOnClick: false,
 });
 
 ReactDOM.render(
