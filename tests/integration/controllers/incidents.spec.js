@@ -34,24 +34,22 @@ describe('Incident', () => {
     const response = await request(app).get('/v1/incidents').send();
 
     incidents.forEach((incident) => {
-      expect(response.body).toContainEqual(
-        expect.objectContaining({
-          id: incident.id,
-          title: incident.title,
-          description: incident.description,
-          value: incident.value,
-          url: `${base_url}/incidents/${incident.id}`,
-          ngo: {
-            id: incident.ngo_id,
-            name: ngo.name,
-            email: ngo.email,
-            whatsapp: ngo.whatsapp,
-            city: ngo.city,
-            uf: ngo.uf,
-            url: `${base_url}/ngos/${incident.ngo_id}`,
-          },
-        })
-      );
+      expect(response.body).toContainEqual({
+        id: incident.id,
+        title: incident.title,
+        description: incident.description,
+        value: incident.value,
+        url: `${base_url}/incidents/${incident.id}`,
+        ngo: {
+          id: incident.ngo_id,
+          name: ngo.name,
+          email: ngo.email,
+          whatsapp: ngo.whatsapp,
+          city: ngo.city,
+          uf: ngo.uf,
+          url: `${base_url}/ngos/${incident.ngo_id}`,
+        },
+      });
     });
   });
 

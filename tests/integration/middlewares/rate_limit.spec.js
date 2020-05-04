@@ -15,19 +15,25 @@ describe('RateLimit', () => {
   it('should not be able to consume after many requests', async () => {
     const requests = [];
 
-    let response;
     for (let i = 0; i < 10; i += 1) {
       requests.push(RateLimit({}, res, next));
     }
 
-    try {
-      await Promise.all(requests);
-    } catch (err) {
-      response = err;
-    }
-
-    expect(response).toStrictEqual(
-      tooManyRequests('Too Many Requests', { code: 449 })
-    );
+    Promise.all(requests).catch((err) => {
+      expect({ ...err }).toStrictEqual({
+        data: { code: 449 },
+        isBoom: true,
+        isServer: false,
+        output: {
+          statusCode: 429,
+          payload: {
+            statusCode: 429,
+            error: 'Too Many Requests',
+            message: 'Too Many Requests',
+          },
+          headers: {},
+        },
+      });
+    });
   });
 });

@@ -26,7 +26,7 @@ describe('Session', () => {
       .send({ id: ngo.id });
 
     expect(response.body).toStrictEqual({
-      ngo: { name: ngo.name },
+      ngo: { id: ngo.id, name: ngo.name },
       token: expect.any(String),
     });
   });
