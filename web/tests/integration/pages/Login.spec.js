@@ -21,7 +21,7 @@ describe('Login', () => {
   const token = faker.random.alphaNumeric(16);
 
   it('should be able to login', async () => {
-    api_mock.onPost('sessions').reply(200, { ngo: { name }, token });
+    api_mock.onPost('sessions').reply(200, { ngo: { id, name }, token });
 
     const { getByTestId, getByPlaceholderText } = render(
       <NgoContext.Provider value={{ ngo: {}, setNgo }}>
@@ -38,9 +38,9 @@ describe('Login', () => {
     });
 
     expect(localStorage.getItem('bethehero')).toBe(
-      JSON.stringify({ name, token })
+      JSON.stringify({ id, name, token })
     );
-    expect(setNgo).toHaveBeenCalledWith({ name, token });
+    expect(setNgo).toHaveBeenCalledWith({ id, name, token });
   });
 
   it('should not be able to login', async () => {

@@ -32,10 +32,10 @@ export default () => {
 
         localStorage.setItem(
           'bethehero',
-          JSON.stringify({ name: ngo.name, token })
+          JSON.stringify({ id: ngo.id, name: ngo.name, token })
         );
 
-        setNgo({ name: ngo.name, token });
+        setNgo({ id: ngo.id, name: ngo.name, token });
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
           const validation_errors = {};

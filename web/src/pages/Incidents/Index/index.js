@@ -14,7 +14,7 @@ import { Container, Incidents, Header } from './styles';
 
 export default () => {
   const {
-    ngo: { name },
+    ngo: { id, name },
     setNgo,
   } = useContext(NgoContext);
   const [incidents, setIncidents] = useState([]);
