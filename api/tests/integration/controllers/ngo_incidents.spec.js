@@ -6,7 +6,7 @@ import connection from '../../../src/database/connection';
 import factory from '../../utils/factory';
 
 describe("NGO's Incidents", () => {
-  const base_url = `http://127.0.0.1:${process.env.APP_PORT}/v1`;
+  const url = `http://127.0.0.1:${process.env.APP_PORT}/v1`;
 
   beforeEach(async () => {
     await connection.migrate.rollback();
@@ -43,11 +43,9 @@ describe("NGO's Incidents", () => {
         description,
         title,
         value,
-        url: `${base_url}/incidents/${id}`,
-        ngo: {
-          id: ngo.id,
-          url: `${base_url}/ngos/${ngo.id}`,
-        },
+        ngo_id: ngo.id,
+        ngo_url: `${url}/ngos/${ngo.id}`,
+        url: `${url}/incidents/${id}`,
       });
     });
   });

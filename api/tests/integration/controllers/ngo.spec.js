@@ -6,7 +6,7 @@ import connection from '../../../src/database/connection';
 import factory from '../../utils/factory';
 
 describe('NGO', () => {
-  const base_url = `http://127.0.0.1:${process.env.APP_PORT}/v1`;
+  const url = `http://127.0.0.1:${process.env.APP_PORT}/v1`;
 
   beforeEach(async () => {
     await connection.migrate.rollback();
@@ -27,8 +27,8 @@ describe('NGO', () => {
     ngos.slice(0, 5).forEach((ngo) => {
       expect(response.body).toContainEqual({
         ...ngo,
-        url: `${base_url}/ngos/${ngo.id}`,
-        incidents_url: `${base_url}/ngos/${ngo.id}/incidents`,
+        url: `${url}/ngos/${ngo.id}`,
+        incidents_url: `${url}/ngos/${ngo.id}/incidents`,
       });
     });
   });
@@ -41,8 +41,8 @@ describe('NGO', () => {
 
     expect(response.body).toStrictEqual({
       ...ngo,
-      url: `${base_url}/ngos/${ngo.id}`,
-      incidents_url: `${base_url}/ngos/${ngo.id}/incidents`,
+      url: `${url}/ngos/${ngo.id}`,
+      incidents_url: `${url}/ngos/${ngo.id}/incidents`,
     });
   });
 

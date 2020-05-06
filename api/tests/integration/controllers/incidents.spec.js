@@ -7,7 +7,7 @@ import factory from '../../utils/factory';
 import token from '../../utils/jwtoken';
 
 describe('Incident', () => {
-  const base_url = `http://127.0.0.1:${process.env.APP_PORT}/v1`;
+  const url = `http://127.0.0.1:${process.env.APP_PORT}/v1`;
   let ngo;
   let authorization;
 
@@ -39,7 +39,7 @@ describe('Incident', () => {
         title: incident.title,
         description: incident.description,
         value: incident.value,
-        url: `${base_url}/incidents/${incident.id}`,
+        url: `${url}/incidents/${incident.id}`,
         ngo: {
           id: incident.ngo_id,
           name: ngo.name,
@@ -47,7 +47,7 @@ describe('Incident', () => {
           whatsapp: ngo.whatsapp,
           city: ngo.city,
           uf: ngo.uf,
-          url: `${base_url}/ngos/${incident.ngo_id}`,
+          url: `${url}/ngos/${incident.ngo_id}`,
         },
       });
     });
@@ -72,7 +72,7 @@ describe('Incident', () => {
         title: incident.title,
         description: incident.description,
         value: incident.value,
-        url: `${base_url}/incidents/${incident.id}`,
+        url: `${url}/incidents/${incident.id}`,
         ngo: {
           id: incident.ngo_id,
           name: ngo.name,
@@ -80,7 +80,7 @@ describe('Incident', () => {
           whatsapp: ngo.whatsapp,
           city: ngo.city,
           uf: ngo.uf,
-          url: `${base_url}/ngos/${incident.ngo_id}`,
+          url: `${url}/ngos/${incident.ngo_id}`,
         },
       });
     });
@@ -99,11 +99,9 @@ describe('Incident', () => {
       title: incident.title,
       description: incident.description,
       value: incident.value,
-      url: `${base_url}/incidents/${incident.id}`,
-      ngo: {
-        id: incident.ngo_id,
-        url: `${base_url}/ngos/${incident.ngo_id}`,
-      },
+      ngo_id: ngo.id,
+      ngo_url: `${url}/ngos/${incident.ngo_id}`,
+      url: `${url}/incidents/${incident.id}`,
     });
   });
 
