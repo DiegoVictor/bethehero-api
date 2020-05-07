@@ -23,6 +23,12 @@ export default () => {
   const [reached_end, setReachedEnd] = useState(false);
   const [loading, setLoading] = useState(false);
 
+  const hasNextPage = useCallback((headers) => {
+    if (!headers.link || headers.link.search(/rel="last"/gi) === -1) {
+      setReachedEnd(true);
+    }
+  }, []);
+
   const handleLogout = useCallback(() => {
     localStorage.removeItem('bethehero');
     setNgo({});
@@ -44,32 +50,37 @@ export default () => {
     [incidents]
   );
 
-  const scroll_ref = useInfiniteScroll({
-    loading,
-    hasNextPage: !reached_end,
-    onLoadMore: async () => {
-      setLoading(true);
+  const scroll_ref = useInfiniteScroll(
+    {
+      loading,
+      hasNextPage: !reached_end,
+      onLoadMore: async () => {
+        setLoading(true);
 
-      setPage(page + 1);
-      const { data, headers } = await api.get('/ngo_incidents', {
-        params: { page: page + 1 },
-      });
+        setPage(page + 1);
+        const { data, headers } = await api.get(`/ngos/${id}/incidents`, {
+          params: { page: page + 1 },
+        });
 
-      setIncidents([...incidents, ...data]);
-      if (!headers || headers.link.search(/rel="last"/gi) === -1) {
-        setReachedEnd(true);
-      }
-
-      setLoading(false);
+        setIncidents([...incidents, ...data]);
+        hasNextPage(headers);
+        setLoading(false);
+      },
     },
-  });
+    [id]
+  );
 
   useEffect(() => {
     (async () => {
-      const { data } = await api.get('/ngo_incidents', { params: { page: 1 } });
+      const { data, headers } = await api.get(`/ngos/${id}/incidents`, {
+        params: { page: 1 },
+      });
+      if (headers) {
+        hasNextPage(headers);
+      }
       setIncidents(data);
     })();
-  }, []);
+  }, [id, hasNextPage]);
 
   return (
     <Layout>
