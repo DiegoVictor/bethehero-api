@@ -16,13 +16,13 @@ import BearerAuth from './app/middlewares/BearerAuth';
 import RateLimit from './app/middlewares/RateLimit';
 
 import { BruteForce } from './database/redis';
-import bruteforce_config from './config/bruteforce';
+import config from './config/bruteforce';
 
 const Route = Router();
 
 Route.post(
   '/sessions',
-  new BruteForce(bruteforce_config).prevent,
+  new BruteForce(config).prevent,
   SessionValidator,
   SessionController.store
 );
