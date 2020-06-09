@@ -6,5 +6,4 @@ node_js:
   - node
 script:
   - yarn test
-  - yarn coverage
   - codecov
