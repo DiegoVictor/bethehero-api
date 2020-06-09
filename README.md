@@ -1,16 +1,17 @@
 # [API] Be The Hero
+[![Travis (.org)](https://img.shields.io/travis/DiegoVictor/bethehero-api?logo=travis&style=flat-square)](https://travis-ci.org/DiegoVictor/bethehero-api)
 [![redis](https://img.shields.io/badge/redis-3.0.2-d92b21?style=flat-square&logo=redis&logoColor=white)](https://redis.io/)
 [![nodemon](https://img.shields.io/badge/nodemon-2.0.2-76d04b?style=flat-square&logo=nodemon)](https://nodemon.io/)
 [![eslint](https://img.shields.io/badge/eslint-6.8.0-4b32c3?style=flat-square&logo=eslint)](https://eslint.org/)
 [![airbnb-style](https://flat.badgen.net/badge/style-guide/airbnb/ff5a5f?icon=airbnb)](https://github.com/airbnb/javascript)
 [![jest](https://img.shields.io/badge/jest-25.2.7-brightgreen?style=flat-square&logo=jest)](https://jestjs.io/)
-![coverage](https://img.shields.io/badge/coverage-100%25-brightgreen?style=flat-square)
+[![coverage](https://img.shields.io/codecov/c/gh/DiegoVictor/bethehero-api?logo=codecov&style=flat-square)](https://codecov.io/gh/DiegoVictor/bethehero-api)
 [![MIT License](https://img.shields.io/badge/license-MIT-green?style=flat-square)](https://github.com/DiegoVictor/bethehero/blob/master/LICENSE)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)<br>
 [![Run in Insomnia}](https://insomnia.rest/images/run.svg)](https://insomnia.rest/run/?label=Be%20The%20Hero&uri=https%3A%2F%2Fraw.githubusercontent.com%2FDiegoVictor%2Fbethehero%2Fmaster%2Fapi%2FInsomnia_2020-05-01.json)
 
 
-Responsible for provide data to the [`web`](https://github.com/DiegoVictor/bethehero/tree/master/web) and [`mobile`](https://github.com/DiegoVictor/bethehero/tree/master/app) front-ends. Permit to register NGOs and manage its incidents. The app has rate limit, brute force prevention, pagination, pagination's link header (to previous, next, first and last page), friendly errors, use JWT to logins, validation, also a simple versioning was made.
+Responsible for provide data to the [`web`](https://github.com/DiegoVictor/bethehero-web) and [`mobile`](https://github.com/DiegoVictor/bethehero-app) front-ends. Permit to register NGOs and manage its incidents. The app has rate limit, brute force prevention, pagination, pagination's link header (to previous, next, first and last page), friendly errors, use JWT to logins, validation, also a simple versioning was made.
 
 ## Table of Contents
 * [Installing](#installing)
@@ -76,7 +77,7 @@ In this file you may configure your Redis database connection, JWT settings, the
 |JWT_EXPIRATION_TIME|How long time will be the token valid. See [jsonwebtoken](https://github.com/auth0/node-jsonwebtoken#usage) repo for more information.|`7d`
 |REDIS_HOST|Redis host. For Windows users using Docker Toolbox maybe be necessary in your `.env` file set the host to `192.168.99.100` (docker machine IP) instead of localhost or `127.0.0.1`.|`127.0.0.1`
 |REDIS_PORT|Redis port.|`6379`
-|DOCS_URL|An url to docs where users can find more information about the app's internal code errors.|`https://github.com/DiegoVictor/bethehero/tree/master/api#errors-reference`
+|DOCS_URL|An url to docs where users can find more information about the app's internal code errors.|`https://github.com/DiegoVictor/bethehero-api#errors-reference`
 
 ### Rate Limit & Brute Force (Optional)
 The project comes pre-configured, but you can adjust it as your needs.
@@ -111,7 +112,7 @@ Instead of only throw a simple message and HTTP Status Code this API return frie
   "error": "Too Many Requests",
   "message": "Too Many Requests",
   "code": 449,
-  "docs": "https://github.com/DiegoVictor/bethehero/tree/master/api#errors-reference"
+  "docs": "https://github.com/DiegoVictor/bethehero-api#errors-reference"
 }
 ```
 > Errors are implemented with [@hapi/boom](https://github.com/hapijs/boom).
