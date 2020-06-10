@@ -97,11 +97,11 @@ The project comes pre-configured, but you can adjust it as your needs.
 # Usage
 To start up the app run:
 ```
-$ yarn start
+$ yarn dev:server
 ```
 Or:
 ```
-npm run start
+npm run dev:server
 ```
 
 ## Error Handling
