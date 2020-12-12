@@ -72,7 +72,7 @@ In this file you may configure your Redis database connection, JWT settings, the
 |key|description|default
 |---|---|---
 |APP_PORT|Port number where the app will run.|`3333`
-|NODE_ENV|App environment. The knex's connection configuration used rely on the this key value, so if the environment is `development` the knex connection used will be`development`.|`development`
+|NODE_ENV|App environment. The knex's connection configuration used rely on this key value, so if the environment is `development` the knex connection used will be `development`.|`development`
 |JWT_SECRET|A alphanumeric random string. Used to create signed tokens.| -
 |JWT_EXPIRATION_TIME|How long time will be the token valid. See [jsonwebtoken](https://github.com/auth0/node-jsonwebtoken#usage) repo for more information.|`7d`
 |REDIS_HOST|Redis host. For Windows users using Docker Toolbox maybe be necessary in your `.env` file set the host to `192.168.99.100` (docker machine IP) instead of localhost or `127.0.0.1`.|`127.0.0.1`
