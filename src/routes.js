@@ -13,10 +13,6 @@ import PageValidator from './app/validators/PageValidator';
 import NgoIdValidator from './app/validators/NgoIdValidator';
 
 import BearerAuth from './app/middlewares/BearerAuth';
-import RateLimit from './app/middlewares/RateLimit';
-
-import { BruteForce } from './database/redis';
-import config from './config/bruteforce';
 
 const Route = Router();
 
@@ -27,7 +23,6 @@ Route.post(
   SessionController.store
 );
 
-Route.use(RateLimit);
 
 Route.get('/ngos', PageValidator, NgoController.index);
 Route.get('/ngos/:id', IdValidator, NgoController.show);
