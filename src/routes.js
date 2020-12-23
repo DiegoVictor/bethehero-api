@@ -16,13 +16,7 @@ import BearerAuth from './app/middlewares/BearerAuth';
 
 const Route = Router();
 
-Route.post(
-  '/sessions',
-  new BruteForce(config).prevent,
-  SessionValidator,
-  SessionController.store
-);
-
+Route.post('/sessions', SessionValidator, SessionController.store);
 
 Route.get('/ngos', PageValidator, NgoController.index);
 Route.get('/ngos/:id', IdValidator, NgoController.show);
