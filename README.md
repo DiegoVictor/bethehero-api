@@ -1,6 +1,5 @@
 # [API] Be The Hero
 [![Travis (.org)](https://img.shields.io/travis/DiegoVictor/bethehero-api?logo=travis&style=flat-square)](https://travis-ci.org/DiegoVictor/bethehero-api)
-[![redis](https://img.shields.io/badge/redis-3.0.2-d92b21?style=flat-square&logo=redis&logoColor=white)](https://redis.io/)
 [![nodemon](https://img.shields.io/badge/nodemon-2.0.2-76d04b?style=flat-square&logo=nodemon)](https://nodemon.io/)
 [![eslint](https://img.shields.io/badge/eslint-6.8.0-4b32c3?style=flat-square&logo=eslint)](https://eslint.org/)
 [![airbnb-style](https://flat.badgen.net/badge/style-guide/airbnb/ff5a5f?icon=airbnb)](https://github.com/airbnb/javascript)
@@ -16,11 +15,9 @@ Responsible for provide data to the [`web`](https://github.com/DiegoVictor/bethe
 ## Table of Contents
 * [Installing](#installing)
   * [Configuring](#configuring)
-    * [Redis](#redis)
     * [SQLite](#sqlite)
       * [Migrations](#migrations)
     * [.env](#env)
-    * [Rate Limit & Brute Force (Optional)](#rate-limit--brute-force-optional)
 * [Usage](#usage)
   * [Error Handling](#error-handling)
     * [Errors Reference](#errors-reference)
@@ -46,13 +43,7 @@ $ npm install
 > Was installed and configured the [`eslint`](https://eslint.org/) and [`prettier`](https://prettier.io/) to keep the code clean and patterned.
 
 ## Configuring
-The application use two databases: [SQLite](https://www.sqlite.org/index.html) and [Redis](https://redis.io/).
-
-### Redis
-Responsible to store data utilized by the rate limit middleware and brute force prevention. For the fastest setup is recommended to use [docker](https://www.docker.com), you can create a redis container like so:
-```
-$ docker run --name bethehero-redis -d -p 6379:6379 redis:alpine
-```
+The application uses just one database: [SQLite](https://www.sqlite.org/index.html).
 
 ### SQLite
 Store the NGOs and its incidents. For more information to how to setup your database see:
@@ -67,7 +58,7 @@ $ npx knex migrate:latest
 > See more information on [Knex Migrations](http://knexjs.org/#Migrations).
 
 ### .env
-In this file you may configure your Redis database connection, JWT settings, the environment, app's port and a url to documentation (this will be returned with error responses, see [error section](#error-handling)). Rename the `.env.example` in the root directory to `.env` then just update with your settings.
+In this file you may configure your JWT settings, the environment, app's port and a url to documentation (this will be returned with error responses, see [error section](#error-handling)). Rename the `.env.example` in the root directory to `.env` then just update with your settings.
 
 |key|description|default
 |---|---|---
@@ -75,24 +66,7 @@ In this file you may configure your Redis database connection, JWT settings, the
 |NODE_ENV|App environment. The knex's connection configuration used rely on this key value, so if the environment is `development` the knex connection used will be `development`.|`development`
 |JWT_SECRET|A alphanumeric random string. Used to create signed tokens.| -
 |JWT_EXPIRATION_TIME|How long time will be the token valid. See [jsonwebtoken](https://github.com/auth0/node-jsonwebtoken#usage) repo for more information.|`7d`
-|REDIS_HOST|Redis host. For Windows users using Docker Toolbox maybe be necessary in your `.env` file set the host to `192.168.99.100` (docker machine IP) instead of localhost or `127.0.0.1`.|`127.0.0.1`
-|REDIS_PORT|Redis port.|`6379`
 |DOCS_URL|An url to docs where users can find more information about the app's internal code errors.|`https://github.com/DiegoVictor/bethehero-api#errors-reference`
-
-### Rate Limit & Brute Force (Optional)
-The project comes pre-configured, but you can adjust it as your needs.
-
-* `src/config/rate_limit.js`
-
-|key|description|default
-|---|---|---
-|duration|Number of seconds before consumed points are reset.|`300`
-|points|Maximum number of points can be consumed over duration.|`10`
-
-> The lib [`rate-limiter-flexible`](https://github.com/animir/node-rate-limiter-flexible) was used to rate the api's limits, for more configuration information go to [Options](https://github.com/animir/node-rate-limiter-flexible/wiki/Options#options) page.
-
-* `src/config/bruteforce.js`
-> `rate-limiter-flexible` was also used to configure brute force prevention, but with a different method of configuration that you can see in [ExpressBrute migration](https://github.com/animir/node-rate-limiter-flexible/wiki/ExpressBrute-migration#options).
 
 # Usage
 To start up the app run:
