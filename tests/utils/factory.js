@@ -18,7 +18,7 @@ factory.define(
   'Incident',
   {},
   {
-    id: faker.random.number,
+    id: faker.datatype.number,
     title: faker.name.title,
     description: faker.lorem.paragraph,
     value: () => Number(faker.finance.amount()),
