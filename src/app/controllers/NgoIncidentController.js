@@ -4,12 +4,12 @@ import paginationLinks from '../helpers/paginationLinks';
 class NgoIncidentController {
   async index(req, res) {
     const { hostUrl, currentUrl } = req;
-    const { ngoId } = req.params;
+    const { ngo_id } = req.params;
     const { page = 1 } = req.query;
     const limit = 5;
 
     const incidents = await connection('incidents')
-      .where('ngo_id', ngoId)
+      .where('ngo_id', ngo_id)
       .limit(limit)
       .offset((page - 1) * limit)
       .select('*')
@@ -22,7 +22,7 @@ class NgoIncidentController {
       );
 
     const [count] = await connection('incidents')
-      .where('ngo_id', ngoId)
+      .where('ngo_id', ngo_id)
       .count();
     res.header('X-Total-Count', count['count(*)']);
 
@@ -35,4 +35,4 @@ class NgoIncidentController {
   }
 }
 
-export default new NgoIncidentController();
+export default NgoIncidentController;
