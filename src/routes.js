@@ -12,7 +12,7 @@ import IdValidator from './app/validators/IdValidator';
 import PageValidator from './app/validators/PageValidator';
 import NgoIdValidator from './app/validators/NgoIdValidator';
 
-import BearerAuth from './app/middlewares/BearerAuth';
+import bearerAuth from './app/middlewares/bearerAuth';
 
 const Route = Router();
 
@@ -31,7 +31,7 @@ Route.post('/ngos', NgoValidator, NgoController.store);
 Route.get('/incidents', PageValidator, IncidentController.index);
 Route.get('/incidents/:id', IdValidator, IncidentController.show);
 
-Route.use(BearerAuth);
+Route.use(bearerAuth);
 
 Route.post('/incidents', IncidentValidator, IncidentController.store);
 Route.delete('/incidents/:id', IdValidator, IncidentController.destroy);

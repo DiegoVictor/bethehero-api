@@ -1,7 +1,7 @@
 import 'dotenv/config';
 import faker from 'faker';
 
-import BearerAuth from '../../../src/app/middlewares/BearerAuth';
+import bearerAuth from '../../../src/app/middlewares/bearerAuth';
 import connection from '../../../src/database/connection';
 import factory from '../../utils/factory';
 import token from '../../utils/jwtoken';
@@ -31,7 +31,7 @@ describe('BearerAuth', () => {
         authorization: `Bearer ${token(ngo.id)}`,
       },
     };
-    await BearerAuth(req, res, next);
+    await bearerAuth(req, res, next);
 
     expect(next).toHaveBeenCalled();
   });
@@ -41,7 +41,7 @@ describe('BearerAuth', () => {
       headers: {},
     };
 
-    BearerAuth(req, res, next).catch((err) => {
+    bearerAuth(req, res, next).catch((err) => {
       expect({ ...err }).toStrictEqual({
         data: { code: 340 },
         isBoom: true,
@@ -66,7 +66,7 @@ describe('BearerAuth', () => {
       },
     };
 
-    BearerAuth(req, res, next).catch((err) => {
+    bearerAuth(req, res, next).catch((err) => {
       const message = 'Token invalid';
       expect({ ...err }).toStrictEqual({
         data: null,
