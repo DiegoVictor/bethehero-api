@@ -5,7 +5,7 @@ import paginationLinks from '../helpers/paginationLinks';
 
 class IncidentController {
   async index(req, res) {
-    const { host_url, current_url } = req;
+    const { hostUrl, currentUrl } = req;
     const { page = 1 } = req.query;
     const limit = 5;
 
@@ -27,25 +27,25 @@ class IncidentController {
             whatsapp: incident.whatsapp,
             city: incident.city,
             uf: incident.uf,
-            url: `${host_url}/v1/ngos/${incident.ngo_id}`,
+            url: `${hostUrl}/v1/ngos/${incident.ngo_id}`,
           },
-          url: `${current_url}/${incident.id}`,
+          url: `${currentUrl}/${incident.id}`,
         }))
       );
 
     const [count] = await connection('incidents').count();
     res.header('X-Total-Count', count['count(*)']);
 
-    const pages_total = Math.ceil(count['count(*)'] / limit);
-    if (pages_total > 1) {
-      res.links(paginationLinks(page, pages_total, current_url));
+    const pagesTotal = Math.ceil(count['count(*)'] / limit);
+    if (pagesTotal > 1) {
+      res.links(paginationLinks(page, pagesTotal, currentUrl));
     }
 
     return res.json(incidents);
   }
 
   async show(req, res) {
-    const { host_url, current_url } = req;
+    const { hostUrl, currentUrl } = req;
     const { id } = req.params;
     const incident = await connection('incidents').where('id', id).first();
 
@@ -55,20 +55,20 @@ class IncidentController {
 
     return res.json({
       ...incident,
-      ngo_url: `${host_url}/v1/ngos/${incident.ngo_id}`,
-      url: current_url,
+      ngo_url: `${hostUrl}/v1/ngos/${incident.ngo_id}`,
+      url: currentUrl,
     });
   }
 
   async store(req, res) {
     const { title, description, value } = req.body;
-    const { ngo_id } = req;
+    const { ngoId } = req;
 
     const [id] = await connection('incidents').insert({
       title,
       description,
       value,
-      ngo_id,
+      ngo_id: ngoId,
     });
 
     return res.json({ id });
@@ -76,7 +76,7 @@ class IncidentController {
 
   async destroy(req, res) {
     const { id } = req.params;
-    const { ngo_id } = req;
+    const { ngoId } = req;
 
     const incident = await connection('incidents')
       .where('id', id)
@@ -87,7 +87,7 @@ class IncidentController {
       throw notFound('Incident not found', { code: 144 });
     }
 
-    if (incident.ngo_id !== ngo_id) {
+    if (incident.ngo_id !== ngoId) {
       throw unauthorized('This incident is not owned by your NGO', 'sample', {
         code: 141,
       });

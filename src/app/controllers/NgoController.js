@@ -6,7 +6,7 @@ import paginationLinks from '../helpers/paginationLinks';
 
 class NgoController {
   async index(req, res) {
-    const { current_url } = req;
+    const { currentUrl } = req;
     const { page = 1 } = req.query;
     const limit = 5;
     const ngos = await connection('ngos')
@@ -16,24 +16,24 @@ class NgoController {
       .then((data) =>
         data.map((ngo) => ({
           ...ngo,
-          incidents_url: `${current_url}/${ngo.id}/incidents`,
-          url: `${current_url}/${ngo.id}`,
+          incidents_url: `${currentUrl}/${ngo.id}/incidents`,
+          url: `${currentUrl}/${ngo.id}`,
         }))
       );
 
     const [count] = await connection('ngos').count();
     res.header('X-Total-Count', count['count(*)']);
 
-    const pages_total = Math.ceil(count['count(*)'] / limit);
-    if (pages_total > 1) {
-      res.links(paginationLinks(page, pages_total, current_url));
+    const pagesTotal = Math.ceil(count['count(*)'] / limit);
+    if (pagesTotal > 1) {
+      res.links(paginationLinks(page, pagesTotal, currentUrl));
     }
 
     return res.json(ngos);
   }
 
   async show(req, res) {
-    const { current_url } = req;
+    const { currentUrl } = req;
     const { id } = req.params;
     const ngo = await connection('ngos').where('id', id).first();
 
@@ -43,8 +43,8 @@ class NgoController {
 
     return res.json({
       ...ngo,
-      incidents_url: `${current_url}/incidents`,
-      url: current_url,
+      incidents_url: `${currentUrl}/incidents`,
+      url: currentUrl,
     });
   }
 

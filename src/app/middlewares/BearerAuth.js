@@ -13,7 +13,7 @@ export default async (req, _, next) => {
 
   try {
     const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
-    req.ngo_id = decoded.id;
+    req.ngoId = decoded.id;
 
     return next();
   } catch (err) {
