@@ -8,12 +8,14 @@ import bearerAuth from '../app/middlewares/bearerAuth';
 
 const app = Router();
 
-app.get('/incidents', PageValidator, IncidentController.index);
-app.get('/incidents/:id', IdValidator, IncidentController.show);
+const incidentController = new IncidentController();
+
+app.get('/', PageValidator, incidentController.index);
+app.get('/:id', IdValidator, incidentController.show);
 
 app.use(bearerAuth);
 
-app.post('/incidents', IncidentValidator, IncidentController.store);
-app.delete('/incidents/:id', IdValidator, IncidentController.destroy);
+app.post('/', IncidentValidator, incidentController.store);
+app.delete('/:id', IdValidator, incidentController.destroy);
 
 export default app;

@@ -5,6 +5,8 @@ import SessionValidator from '../app/validators/SessionValidator';
 
 const app = Router();
 
-app.post('/', SessionValidator, SessionController.store);
+const sessionController = new SessionController();
+
+app.post('/', SessionValidator, sessionController.store);
 
 export default app;

@@ -9,14 +9,17 @@ import NgoIdValidator from '../app/validators/NgoIdValidator';
 
 const app = Router();
 
-app.get('/', PageValidator, NgoController.index);
-app.get('/:id', IdValidator, NgoController.show);
+const ngoController = new NgoController();
+const ngoIncidentController = new NgoIncidentController();
+
+app.get('/', PageValidator, ngoController.index);
+app.get('/:id', IdValidator, ngoController.show);
 app.get(
   '/:ngo_id/incidents',
   NgoIdValidator,
   PageValidator,
-  NgoIncidentController.index
+  ngoIncidentController.index
 );
-app.post('/', NgoValidator, NgoController.store);
+app.post('/', NgoValidator, ngoController.store);
 
 export default app;

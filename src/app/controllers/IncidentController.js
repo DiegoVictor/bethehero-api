@@ -99,4 +99,4 @@ class IncidentController {
   }
 }
 
-export default new IncidentController();
+export default IncidentController;

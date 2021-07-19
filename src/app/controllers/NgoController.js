@@ -58,4 +58,4 @@ class NgoController {
   }
 }
 
-export default new NgoController();
+export default NgoController;
