@@ -1,0 +1,18 @@
+{
+  "openapi":"3.0.2",
+  "info": {
+    "title":"Be The Hero",
+    "version":"1.0",
+    "license": {
+      "name": "MIT",
+      "url": "https://github.com/DiegoVictor/bethehero-api/blob/master/LICENSE"
+    }
+  },
+  "servers": [
+    {
+      "url":"http://localhost:3333/v1"
+    }
+  ],
+  "paths": {
+  },
+}
