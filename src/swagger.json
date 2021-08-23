@@ -15,4 +15,58 @@
   ],
   "paths": {
   },
+  "components": {
+    "schemas": {
+      "Error": {
+        "oneOf": [
+          {
+            "properties": {
+              "statusCode": {
+                "type": "integer"
+              },
+              "error": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              },
+              "code": {
+                "type": "integer"
+              },
+              "docs": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "properties": {
+              "statusCode": {
+                "type": "integer"
+              },
+              "error": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              },
+              "attributes": {
+                "type": "object",
+                "properties": {
+                  "code": {
+                    "type": "integer"
+                  },
+                  "error": {
+                    "type": "string"
+                  }
+                }
+              },
+              "docs": {
+                "type": "string"
+              }
+            }
+          }
+        ]
+      }
+    },
+  }
 }
