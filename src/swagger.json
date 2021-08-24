@@ -92,6 +92,34 @@
   },
   "components": {
     "schemas": {
+      "NGO": {
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "whatsapp": {
+            "type": "string"
+          },
+          "city": {
+            "type": "string"
+          },
+          "uf": {
+            "type": "string"
+          },
+          "incidents_url": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string"
+          }
+        }
+      },
       "Error": {
         "oneOf": [
           {
