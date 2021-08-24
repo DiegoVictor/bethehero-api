@@ -89,6 +89,63 @@
         }
       }
     },
+    "/ngos": {
+      "get": {
+        "tags": ["NGOS"],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "required": false,
+            "example": 1,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Lists NGOs",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/NGO"
+                  }
+                },
+                "example": [
+                  {
+                    "id": "33ceb990",
+                    "name": "Schinner and Sons",
+                    "email": "diegovictorgonzaga@gmail.com",
+                    "whatsapp": "39379976591",
+                    "city": "Corinefurt",
+                    "uf": "NE",
+                    "incidents_url": "http://localhost:3333/v1/ngos/33ceb990/incidents",
+                    "url": "http://localhost:3333/v1/ngos/33ceb990"
+                  }
+                ]
+              }
+            },
+            "headers": {
+              "X-Total-Count": {
+                "description": "Total number of registries in the database",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "Link": {
+                "description": "Next, Previous, First and Last page's urls",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      },
+    },
   },
   "components": {
     "schemas": {
