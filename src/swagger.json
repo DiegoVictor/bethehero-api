@@ -14,6 +14,81 @@
     }
   ],
   "paths": {
+    "/sessions": {
+      "post": {
+        "tags": ["sessions"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "title": "NGO",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  }
+                }
+              },
+              "example": {
+                "id": "33ceb990"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Authenticates user, return a Bearer Token and ngo's id and name",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "ngo": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "token": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "ngo": {
+                    "id": "33ceb990",
+                    "name": "Schinner and Sons"
+                  },
+                  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjMzY2ViOTkwIiwiaWF0IjoxNjI5MzI5NTAyLCJleHAiOjE2Mjk5MzQzMDJ9.-IRuW7HE5cMLLGKSlmu3tGau3PsVco3YahHL36F3Mdg"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Your NGO was not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "statusCode": 400,
+                  "error": "Bad Request",
+                  "message": "Your NGO was not found",
+                  "code": 240,
+                  "docs": "https://github.com/DiegoVictor/bethehero-api#errors-reference"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
   },
   "components": {
     "schemas": {
