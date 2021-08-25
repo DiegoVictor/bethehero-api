@@ -54,7 +54,7 @@ class NgoController {
 
     await connection('ngos').insert({ id, name, email, whatsapp, city, uf });
 
-    return res.json({ id });
+    return res.status(201).json({ id });
   }
 }
 

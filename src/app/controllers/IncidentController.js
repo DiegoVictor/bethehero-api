@@ -71,7 +71,7 @@ class IncidentController {
       ngo_id: ngoId,
     });
 
-    return res.json({ id });
+    return res.status(201).json({ id });
   }
 
   async destroy(req, res) {
