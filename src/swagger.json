@@ -145,6 +145,71 @@
           }
         }
       },
+      "post": {
+        "tags": ["NGOS"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "name",
+                  "email",
+                  "whatsapp",
+                  "city",
+                  "uf"
+                ],
+                "title": "NGO",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "whatsapp": {
+                    "type": "string"
+                  },
+                  "city": {
+                    "type": "string"
+                  },
+                  "uf": {
+                    "type": "string"
+                  }
+                }
+              },
+              "example": {
+                "name": "Schinner and Sons",
+                "email": "diegovictorgonzaga@gmail.com",
+                "whatsapp": "39379976591",
+                "city": "Corinefurt",
+                "uf": "NE"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Create a new NGO",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "id": "33ceb990"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     },
   },
   "components": {
