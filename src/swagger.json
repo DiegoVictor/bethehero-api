@@ -293,6 +293,45 @@
         ]
       }
     },
+    "responses": {
+      "400": {
+        "description": "Token not provided",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            },
+            "example": {
+              "statusCode": 400,
+              "error": "Bad Request",
+              "message": "Token not provided",
+              "code": 340,
+              "docs": "https://github.com/DiegoVictor/bethehero-api#errors-reference"
+            }
+          }
+        }
+      },
+      "401": {
+        "description": "Token invalid",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            },
+            "example": {
+              "statusCode": 401,
+              "error": "Unauthorized",
+              "message": "Token invalid",
+              "attributes": {
+                "code": 341,
+                "error": "Token invalid"
+              },
+              "docs": "https://github.com/DiegoVictor/bethehero-api#errors-reference"
+            }
+          }
+        }
+      }
+    },
     "securitySchemes": {
       "bearer": {
         "scheme": "bearer",
