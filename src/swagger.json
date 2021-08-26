@@ -288,8 +288,24 @@
           "uf": {
             "type": "string"
           },
-          "incidents_url": {
+          "url": {
             "type": "string"
+          }
+        }
+      },
+      "Incident": {
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "title": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "value": {
+            "type": "number"
           },
           "url": {
             "type": "string"
