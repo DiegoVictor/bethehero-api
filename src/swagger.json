@@ -289,6 +289,86 @@
         }
       }
     },
+    "/ngos/{ngo_id}/incidents": {
+      "get": {
+        "tags": ["NGOS"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "ngo_id",
+            "required": true,
+            "example": "33ceb990",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "required": false,
+            "example": 1,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List NGO's incidents",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "allOf": [
+                      {
+                        "$ref": "#/components/schemas/Incident"
+                      },
+                      {
+                        "title": "Incident",
+                        "properties": {
+                          "ngo_id": {
+                            "type": "string"
+                          },
+                          "ngo_url": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "example": [
+                  {
+                    "id": 1,
+                    "title": "Forward Tactics Representative",
+                    "description": "Adipisci non assumenda ad sequi. Mollitia numquam voluptatum qui non nulla ad deleniti.",
+                    "value": 512.93,
+                    "ngo_id": "33ceb990",
+                    "ngo_url": "http://localhost:3333/v1/ngos/33ceb990",
+                    "url": "http://localhost:3333/v1/incidents/1"
+                  }
+                ]
+              }
+            },
+            "headers": {
+              "X-Total-Count": {
+                "description": "Total number of registries in the database",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "Link": {
+                "description": "Next, Previous, First and Last page's urls",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
   },
   "components": {
     "schemas": {
