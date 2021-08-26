@@ -369,6 +369,60 @@
         }
       }
     },
+    "/incidents/{id}": {
+      "get": {
+        "tags": ["Incidents"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "example": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return one incident",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Incident"
+                },
+                "example": {
+                  "id": 1,
+                  "title": "Forward Tactics Representative",
+                  "description": "Adipisci non assumenda ad sequi. Mollitia numquam voluptatum qui non nulla ad deleniti.",
+                  "value": 512.93,
+                  "ngo_id": "33ceb990",
+                  "ngo_url": "http://localhost:3333/v1/ngos/33ceb990",
+                  "url": "http://localhost:3333/v1/incidents/1"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Incident not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "statusCode": 404,
+                  "error": "Not Found",
+                  "message": "Incident not found",
+                  "code": 144,
+                  "docs": "https://github.com/DiegoVictor/bethehero-api#errors-reference"
+                }
+              }
+            }
+          }
+        }
+      },
+    }
   },
   "components": {
     "schemas": {
