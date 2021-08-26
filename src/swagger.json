@@ -210,6 +210,60 @@
         }
       }
     },
+    "/ngos/{id}": {
+      "get": {
+        "tags": ["NGOS"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "33ceb990"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return one NGO",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NGO"
+                },
+                "example": {
+                  "id": "33ceb990",
+                  "name": "Schinner and Sons",
+                  "email": "diegovictorgonzaga@gmail.com",
+                  "whatsapp": "39379976591",
+                  "city": "Corinefurt",
+                  "uf": "NE",
+                  "incidents_url": "http://localhost:3333/v1/ngos/33ceb990/incidents",
+                  "url": "http://localhost:3333/v1/ngos/33ceb990"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "NGO not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "statusCode": 404,
+                  "error": "Not Found",
+                  "message": "NGO not found",
+                  "code": 244,
+                  "docs": "https://github.com/DiegoVictor/bethehero-api#errors-reference"
+                }
+              }
+            }
+          }
+        }
+      }
     },
   },
   "components": {
