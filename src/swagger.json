@@ -111,7 +111,19 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/NGO"
+                    "allOf": [
+                      {
+                        "$ref": "#/components/schemas/NGO"
+                      },
+                      {
+                        "title": "NGO",
+                        "properties": {
+                          "incidents_url": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    ]
                   }
                 },
                 "example": [
@@ -230,7 +242,19 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/NGO"
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/NGO"
+                    },
+                    {
+                      "title": "NGO",
+                      "properties": {
+                        "incidents_url": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  ]
                 },
                 "example": {
                   "id": "33ceb990",
