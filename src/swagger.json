@@ -422,6 +422,86 @@
           }
         }
       },
+      "delete": {
+        "tags": ["Incidents"],
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "example": 1
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Remove an incident"
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "description": "This incident is not owned by your NGO",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "Incident":  {
+                    "value": {
+                      "statusCode": 401,
+                      "error": "Unauthorized",
+                      "message": "This incident is not owned by your NGO",
+                      "attributes": {
+                        "code": 141,
+                        "error": "This incident is not owned by your NGO"
+                      },
+                      "docs": "https://github.com/DiegoVictor/bethehero-api#errors-reference"
+                    }
+                  },
+                  "Authorization": {
+                    "value": {
+                      "statusCode": 401,
+                      "error": "Unauthorized",
+                      "message": "Token invalid",
+                      "attributes": {
+                        "code": 341,
+                        "error": "Token invalid"
+                      },
+                      "docs": "https://github.com/DiegoVictor/bethehero-api#errors-reference"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Incident not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "statusCode": 404,
+                  "error": "Not Found",
+                  "message": "Incident not found",
+                  "code": 144,
+                  "docs": "https://github.com/DiegoVictor/bethehero-api#errors-reference"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
