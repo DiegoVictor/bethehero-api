@@ -443,6 +443,72 @@
           }
         }
       },
+      "post": {
+        "tags": ["Incidents"],
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "title",
+                  "description",
+                  "value"
+                ],
+                "title": "Incident",
+                "properties": {
+                  "title": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "value": {
+                    "type": "number"
+                  }
+                }
+              },
+              "example": {
+                "title": "Forward Tactics Representative",
+                "description": "Adipisci non assumenda ad sequi. Mollitia numquam voluptatum qui non nulla ad deleniti.",
+                "value": 512.93
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Create new incidents",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "Incident",
+                  "properties": {
+                    "id": {
+                      "type": "integer"
+                    }
+                  }
+                },
+                "example": {
+                  "id": 1
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          }
+        }
+      }
     },
     "/incidents/{id}": {
       "get": {
