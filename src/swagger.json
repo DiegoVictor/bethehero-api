@@ -369,6 +369,81 @@
         }
       }
     },
+    "/incidents": {
+      "get": {
+        "tags": ["Incidents"],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            },
+            "example": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List incidents",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "allOf": [
+                      {
+                        "$ref": "#/components/schemas/Incident"
+                      },
+                      {
+                        "title": "Incident",
+                        "properties": {
+                          "ngo": {
+                            "$ref": "#/components/schemas/NGO"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "example": [
+                  {
+                    "id": 1,
+                    "title": "Forward Tactics Representative",
+                    "description": "Adipisci non assumenda ad sequi. Mollitia numquam voluptatum qui non nulla ad deleniti.",
+                    "value": 512.93,
+                    "ngo": {
+                      "id": "33ceb990",
+                      "name": "Schinner and Sons",
+                      "email": "diegovictorgonzaga@gmail.com",
+                      "whatsapp": "39379976591",
+                      "city": "Corinefurt",
+                      "uf": "NE",
+                      "url": "http://localhost:3333/v1/ngos/33ceb990"
+                    },
+                    "url": "http://localhost:3333/v1/incidents/1"
+                  }
+                ]
+              }
+            },
+            "headers": {
+              "X-Total-Count": {
+                "description": "Total number of registries in the database",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "Link": {
+                "description": "Next, Previous, First and Last page's urls",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      },
+    },
     "/incidents/{id}": {
       "get": {
         "tags": ["Incidents"],
