@@ -1,5 +1,5 @@
 import factory from 'factory-girl';
-import faker from 'faker';
+import faker from '@faker-js/faker';
 
 factory.define(
   'Ngo',
@@ -19,7 +19,7 @@ factory.define(
   {},
   {
     id: faker.datatype.number,
-    title: faker.name.title,
+    title: faker.lorem.words,
     description: faker.lorem.paragraph,
     value: () => Number(faker.finance.amount()),
     ngo_id: () => faker.random.alphaNumeric(8),

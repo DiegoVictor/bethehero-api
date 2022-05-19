@@ -1,5 +1,5 @@
 import 'dotenv/config';
-import faker from 'faker';
+import faker from '@faker-js/faker';
 
 import bearerAuth from '../../../src/app/middlewares/bearerAuth';
 import connection from '../../../src/database/connection';
