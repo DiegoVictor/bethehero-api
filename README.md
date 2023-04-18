@@ -1,9 +1,9 @@
 # [API] Be The Hero
 [![Travis (.com)](https://img.shields.io/travis/com/DiegoVictor/bethehero-api?logo=travis&style=flat-square)](https://travis-ci.com/DiegoVictor/bethehero-api.svg?branch=main)
-[![nodemon](https://img.shields.io/badge/nodemon-2.0.12-76d04b?style=flat-square&logo=nodemon)](https://nodemon.io/)
-[![eslint](https://img.shields.io/badge/eslint-7.31.0-4b32c3?style=flat-square&logo=eslint)](https://eslint.org/)
+[![nodemon](https://img.shields.io/badge/nodemon-2.0.22-76d04b?style=flat-square&logo=nodemon)](https://nodemon.io/)
+[![eslint](https://img.shields.io/badge/eslint-8.38.0-4b32c3?style=flat-square&logo=eslint)](https://eslint.org/)
 [![airbnb-style](https://flat.badgen.net/badge/style-guide/airbnb/ff5a5f?icon=airbnb)](https://github.com/airbnb/javascript)
-[![jest](https://img.shields.io/badge/jest-26.6.3-brightgreen?style=flat-square&logo=jest)](https://jestjs.io/)
+[![jest](https://img.shields.io/badge/jest-29.5.0-brightgreen?style=flat-square&logo=jest)](https://jestjs.io/)
 [![coverage](https://img.shields.io/codecov/c/gh/DiegoVictor/bethehero-api?logo=codecov&style=flat-square)](https://codecov.io/gh/DiegoVictor/bethehero-api)
 [![MIT License](https://img.shields.io/badge/license-MIT-green?style=flat-square)](https://raw.githubusercontent.com/DiegoVictor/bethehero-api/main/LICENSE)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)<br>
