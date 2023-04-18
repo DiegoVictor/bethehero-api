@@ -1,14 +1,14 @@
 import factory from 'factory-girl';
-import faker from '@faker-js/faker';
+import { faker } from '@faker-js/faker';
 
 factory.define(
   'Ngo',
   {},
   {
     id: () => faker.random.alphaNumeric(8),
-    name: faker.name.findName,
+    name: faker.name.fullName,
     email: faker.internet.email,
-    whatsapp: () => faker.phone.phoneNumber('###########'),
+    whatsapp: () => faker.phone.number('###########'),
     city: faker.address.city,
     uf: faker.address.stateAbbr,
   }
