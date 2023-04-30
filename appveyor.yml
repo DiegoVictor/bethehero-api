@@ -1,16 +1,18 @@
 version: 1.0.{build}
+image: Ubuntu
 environment:
   APP_PORT: 3333
   JWT_SECRET: kEftCuMyd4vNaM7afk73d4hf
   JWT_EXPIRATION_TIME: 7d
   DOCS_URL: https://github.com/DiegoVictor/bethehero-api#errors-reference
 install:
-  - cmd: npm ci
+  - sh: npm ci
 build: off
 test_script:
-  - cmd: npm run test
+  - sh: npm run test
 on_success:
-  - ps: >-
-      $ProgressPreference = 'SilentlyContinue'
-      Invoke-WebRequest -Uri https://uploader.codecov.io/latest/windows/codecov.exe -Outfile codecov.exe
-      .\codecov.exe -s tests/coverage
+  - sh: |
+      curl -Os https://uploader.codecov.io/latest/linux/codecov
+
+      chmod +x codecov
+      ./codecov
