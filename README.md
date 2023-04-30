@@ -1,5 +1,5 @@
 # [API] Be The Hero
-[![Travis (.com)](https://img.shields.io/travis/com/DiegoVictor/bethehero-api?logo=travis&style=flat-square)](https://travis-ci.com/DiegoVictor/bethehero-api.svg?branch=main)
+[![AppVeyor](https://img.shields.io/appveyor/build/diegovictor/bethehero-api?logo=appveyor&style=flat-square)](https://ci.appveyor.com/project/DiegoVictor/bethehero-api)
 [![nodemon](https://img.shields.io/badge/nodemon-2.0.22-76d04b?style=flat-square&logo=nodemon)](https://nodemon.io/)
 [![eslint](https://img.shields.io/badge/eslint-8.38.0-4b32c3?style=flat-square&logo=eslint)](https://eslint.org/)
 [![airbnb-style](https://flat.badgen.net/badge/style-guide/airbnb/ff5a5f?icon=airbnb)](https://github.com/airbnb/javascript)
