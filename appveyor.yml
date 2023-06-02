@@ -7,7 +7,6 @@ environment:
   DOCS_URL: https://github.com/DiegoVictor/bethehero-api#errors-reference
 install:
   - sh: npm ci
-build: off
 test_script:
   - sh: npm run test
 on_success:
