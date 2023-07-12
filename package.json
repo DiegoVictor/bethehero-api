@@ -20,7 +20,8 @@
     "sqlite3": "^5.1.6"
   },
   "devDependencies": {
-    "@faker-js/faker": "^7.6.0",
+    "@babel/eslint-parser": "^7.22.7",
+    "@faker-js/faker": "^8.0.2",
     "@sucrase/jest-plugin": "^3.0.0",
     "@types/factory-girl": "^5.0.8",
     "@types/jest": "^29.5.0",
