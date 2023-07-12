@@ -106,7 +106,7 @@ describe('Incident', () => {
   });
 
   it('should not be able to get an incident that not exists', async () => {
-    const id = faker.datatype.number();
+    const id = faker.number.int();
 
     const response = await request(app)
       .get(`/v1/incidents/${id}`)

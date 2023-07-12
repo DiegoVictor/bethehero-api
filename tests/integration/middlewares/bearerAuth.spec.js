@@ -62,7 +62,7 @@ describe('BearerAuth', () => {
   it('should not be authorizated without send a valid token', async () => {
     const req = {
       headers: {
-        authorization: faker.random.alphaNumeric(32),
+        authorization: faker.string.alphanumeric(32),
       },
     };
 
