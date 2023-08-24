@@ -9,7 +9,6 @@ module.exports = {
     },
     useNullAsDefault: true,
   },
-
   development: {
     client: 'sqlite3',
     connection: {
