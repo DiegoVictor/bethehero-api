@@ -80,7 +80,6 @@ Or:
 ```
 npm run dev:server
 ```
-> May you need to run `npm rebuild` to make sqlite3 library to works when running the aplication in a docker container
 
 ## Error Handling
 Instead of only throw a simple message and HTTP Status Code this API return friendly errors:
