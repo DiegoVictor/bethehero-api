@@ -36,7 +36,6 @@
     "nodemon": "^3.0.1",
     "prettier": "^3.0.0",
     "sucrase": "^3.32.0",
-    "supertest": "^6.3.3",
-    "swagger-ui-express": "^5.0.0"
+    "supertest": "^6.3.3"
   }
 }
