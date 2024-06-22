@@ -8,7 +8,7 @@ factory.define(
     id: () => faker.string.alphanumeric(8),
     name: faker.person.fullName,
     email: faker.internet.email,
-    whatsapp: () => faker.phone.number('###########'),
+    whatsapp: () => faker.helpers.fromRegExp('[0-9]{11}'),
     city: faker.location.city,
     uf: () => faker.location.state({ abbreviated: true }),
   }
