@@ -7,7 +7,7 @@
 [![coverage](https://img.shields.io/codecov/c/gh/DiegoVictor/bethehero-api?logo=codecov&style=flat-square)](https://codecov.io/gh/DiegoVictor/bethehero-api)
 [![MIT License](https://img.shields.io/badge/license-MIT-green?style=flat-square)](https://raw.githubusercontent.com/DiegoVictor/bethehero-api/main/LICENSE)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)<br>
-[![Run in Insomnia}](https://insomnia.rest/images/run.svg)](https://insomnia.rest/run/?label=Be%20The%20Hero&uri=https%3A%2F%2Fraw.githubusercontent.com%2FDiegoVictor%2Fbethehero-api%2Fmain%2FInsomnia_2023-08-24.json)
+[![Run in Insomnia}](https://insomnia.rest/images/run.svg)](https://insomnia.rest/run/?label=Be%20The%20Hero&uri=https%3A%2F%2Fraw.githubusercontent.com%2FDiegoVictor%2Fbethehero-api%2Fmain%2FInsomnia_2024-06-23.json)
 
 
 Responsible for provide data to the [`web`](https://github.com/DiegoVictor/bethehero-web) and [`mobile`](https://github.com/DiegoVictor/bethehero-app) front-ends. Permit to register NGOs and manage its incidents. The app has rate limit, brute force prevention, pagination, pagination's link header (to previous, next, first and last page), friendly errors, use JWT to logins, validation, also a simple versioning was made.
