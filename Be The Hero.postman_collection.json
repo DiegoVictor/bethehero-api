@@ -1,0 +1,332 @@
+{
+	"info": {
+		"_postman_id": "5e5a2056-b0cc-4811-a2f3-cc33779626d7",
+		"name": "Be The Hero",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19527899"
+	},
+	"item": [
+		{
+			"name": "Session",
+			"item": [
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"{{ngo_id}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/session",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"session"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "NGOs",
+			"item": [
+				{
+					"name": "List",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const ngos = pm.response.json();\r",
+									"\r",
+									"if (ngos.length > 0) {\r",
+									"    const [{ id }] = ngos;\r",
+									"    pm.collectionVariables.set('ngo_id', id)\r",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/ngos?page=1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"ngos"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Show",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/ngos/{{ngo_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"ngos",
+								"{{ngo_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const response = pm.response.json();\r",
+									"\r",
+									"if (response?.id) {\r",
+									"    pm.collectionVariables.set('ngo_id', response.id)\r",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"John Doe\",\r\n    \"email\": \"johndoe@example.com\",\r\n    \"whatsapp\": \"39379976591\",\r\n    \"city\": \"Corinefurt\",\r\n    \"uf\": \"NE\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/ngos",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"ngos"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Incidents",
+			"item": [
+				{
+					"name": "List",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const incidents = pm.response.json();\r",
+									"\r",
+									"if (incidents.length > 0) {\r",
+									"    const [{ id }] = incidents;\r",
+									"    pm.collectionVariables.set('incident_id', id)\r",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/incidents?page=1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"incidents"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Show",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/incidents/{{incident_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"incidents",
+								"{{incident_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const response = pm.response.json();\r",
+									"\r",
+									"if (response?.id) {\r",
+									"    pm.collectionVariables.set('incident_id', response.id)\r",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"Forward Tactics Representative\",\r\n    \"description\": \"Adipisci non assumenda ad sequi. Mollitia numquam voluptatum qui non nulla ad deleniti.\",\r\n    \"value\": 512.93\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/incidents",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"incidents"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/incidents/{{incident_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"incidents",
+								"{{incident_id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "NGOs Incidents",
+			"item": [
+				{
+					"name": "List",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/ngos/{{ngo_id}}/incidents",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"ngos",
+								"{{ngo_id}}",
+								"incidents"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:3333/v1",
+			"type": "string"
+		},
+		{
+			"key": "ngo_id",
+			"value": "50010099",
+			"type": "string"
+		},
+		{
+			"key": "incident_id",
+			"value": "91995303",
+			"type": "string"
+		}
+	]
+}
