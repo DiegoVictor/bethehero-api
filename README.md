@@ -1,5 +1,6 @@
 # [API] Be The Hero
 [![AppVeyor](https://img.shields.io/appveyor/build/diegovictor/bethehero-api?logo=appveyor&style=flat-square)](https://ci.appveyor.com/project/DiegoVictor/bethehero-api)
+[![sqlite3](https://img.shields.io/badge/sqlite-5.1.7-003b57?style=flat-square&logo=sqlite&logoColor=white)](https://www.sqlite.org)
 [![nodemon](https://img.shields.io/badge/nodemon-3.1.4-76d04b?style=flat-square&logo=nodemon)](https://nodemon.io/)
 [![eslint](https://img.shields.io/badge/eslint-8.57.0-4b32c3?style=flat-square&logo=eslint)](https://eslint.org/)
 [![airbnb-style](https://flat.badgen.net/badge/style-guide/airbnb/ff5a5f?icon=airbnb)](https://github.com/airbnb/javascript)
