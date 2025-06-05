@@ -16,9 +16,9 @@ Responsible for provide data to the [`web`](https://github.com/DiegoVictor/bethe
 ## Table of Contents
 * [Installing](#installing)
   * [Configuring](#configuring)
+    * [.env](#env)
     * [SQLite](#sqlite)
       * [Migrations](#migrations)
-    * [.env](#env)
 * [Usage](#usage)
   * [Error Handling](#error-handling)
     * [Errors Reference](#errors-reference)
@@ -49,6 +49,17 @@ The application uses just one database: [SQLite](https://www.sqlite.org/index.ht
 $ docker-compose up -d
 ```
 
+### .env
+In this file you may configure your JWT settings, the environment, app's port and a url to documentation (this will be returned with error responses, see [error section](#error-handling)). Rename the `.env.example` in the root directory to `.env` then just update with your settings.
+
+|key|description|default
+|---|---|---
+|APP_PORT|Port number where the app will run.|`3333`
+|NODE_ENV|App environment. The knex's connection configuration used rely on this key value, so if the environment is `development` the knex connection used will be `development`.|`development`
+|JWT_SECRET|A alphanumeric random string. Used to create signed tokens.| -
+|JWT_EXPIRATION_TIME|How long time will be the token valid. See [jsonwebtoken](https://github.com/auth0/node-jsonwebtoken#usage) repo for more information.|`7d`
+|DOCS_URL|An url to docs where users can find more information about the app's internal code errors.|`https://github.com/DiegoVictor/bethehero-api#errors-reference`
+
 ### SQLite
 Store the NGOs and its incidents. For more information to how to setup your database see:
 * [knexfile.js](http://knexjs.org/#knexfile)
@@ -60,17 +71,6 @@ Remember to run the SQLite database migrations:
 $ npx knex migrate:latest
 ```
 > See more information on [Knex Migrations](http://knexjs.org/#Migrations).
-
-### .env
-In this file you may configure your JWT settings, the environment, app's port and a url to documentation (this will be returned with error responses, see [error section](#error-handling)). Rename the `.env.example` in the root directory to `.env` then just update with your settings.
-
-|key|description|default
-|---|---|---
-|APP_PORT|Port number where the app will run.|`3333`
-|NODE_ENV|App environment. The knex's connection configuration used rely on this key value, so if the environment is `development` the knex connection used will be `development`.|`development`
-|JWT_SECRET|A alphanumeric random string. Used to create signed tokens.| -
-|JWT_EXPIRATION_TIME|How long time will be the token valid. See [jsonwebtoken](https://github.com/auth0/node-jsonwebtoken#usage) repo for more information.|`7d`
-|DOCS_URL|An url to docs where users can find more information about the app's internal code errors.|`https://github.com/DiegoVictor/bethehero-api#errors-reference`
 
 # Usage
 To start up the app run:
