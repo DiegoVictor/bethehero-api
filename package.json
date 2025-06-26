@@ -21,7 +21,6 @@
   "devDependencies": {
     "@babel/eslint-parser": "^7.27.5",
     "@faker-js/faker": "^9.8.0",
-    "@sucrase/jest-plugin": "^3.0.0",
     "@types/factory-girl": "^5.0.8",
     "@types/jest": "^30.0.0",
     "cross-env": "^7.0.2",
