@@ -19,6 +19,11 @@
     "knex": "^3.1.0",
     "sqlite3": "^5.1.6"
   },
+  "overrides": {
+    "express-async-errors": {
+      "express": "^5.1.0"
+    }
+  },
   "devDependencies": {
     "@babel/eslint-parser": "^7.27.5",
     "@faker-js/faker": "^9.8.0",
